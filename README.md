@@ -33,7 +33,9 @@ Then:
 ./run.sh
 ```
 
-Open **http://127.0.0.1:5050** in **Google Chrome**. Settings open automatically on first launch — enter your API keys and configure languages there. See [USAGE.md](USAGE.md) for the full guide.
+Open **http://127.0.0.1:5050** in **Google Chrome**. Settings open automatically on first launch — enter your API keys and configure languages there.
+
+**[Usage Guide (USAGE.md)](USAGE.md)** — controls, voice management, audio setup, call history.
 
 > **Browser:** Use **Chrome** — audio monitor and BlackHole routing work correctly. Safari has audio output limitations that prevent monitor playback. Other browsers are untested.
 
