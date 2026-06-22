@@ -1,0 +1,92 @@
+# Dependabot version updates — scans manifests/lockfiles and opens PRs.
+# Security alerts/updates are configured separately in repo Settings → Code security.
+#
+# Ecosystems in this repo:
+#   cargo           — workspace (root + crates/*)
+#   npm             — eslint toolchain (package.json / package-lock.json)
+#   github-actions  — .github/workflows/*.yml
+
+version: 2
+
+updates:
+  # --- Rust / Cargo workspace ---
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Moscow
+    allow:
+      # Direct deps in Cargo.toml and transitive deps in Cargo.lock
+      - dependency-type: all
+    groups:
+      rust-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+      rust-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+      - rust
+    commit-message:
+      prefix: deps
+      include: scope
+    rebase-strategy: auto
+
+  # --- JavaScript (dev tooling) ---
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: "06:30"
+      timezone: Europe/Moscow
+    allow:
+      - dependency-type: all
+    groups:
+      npm-dev:
+        dependency-type: development
+        patterns:
+          - "*"
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - javascript
+    commit-message:
+      prefix: deps
+      prefix-development: deps-dev
+      include: scope
+    rebase-strategy: auto
+
+  # --- GitHub Actions (checkout, setup-node, rust-toolchain, etc.) ---
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: "07:00"
+      timezone: Europe/Moscow
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+      github-actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: deps
+      include: scope
+    rebase-strategy: auto
