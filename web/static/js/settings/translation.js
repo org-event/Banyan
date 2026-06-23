@@ -1,5 +1,7 @@
 import { state } from '../core/state.js';
 import { showToast } from '../core/toast.js';
+import { t } from '../core/i18n.js';
+import { setStatus } from '../core/safe-dom.js';
 
 export function translationBackendValue() {
   return document.getElementById('cfg-translation-backend')?.value || 'local';
@@ -53,20 +55,25 @@ export function updateTranslationEngineUI() {
   }
 }
 
-function appleStatusHtml(apple) {
+function renderAppleTranslationStatus(el, apple) {
+  if (!el) return;
   if (!apple?.helper) {
-    return '<span style="color:var(--yellow)">Banyan Translate helper not built (macOS 14.4+ required)</span>';
+    setStatus(el, 'var(--yellow)', t('translation.appleHelperMissing'));
+    return;
   }
   if (!apple.available) {
-    return '<span style="color:var(--yellow)">This language pair is not supported by Banyan Translate on this Mac</span>';
+    setStatus(el, 'var(--yellow)', t('translation.applePairUnsupported'));
+    return;
   }
   if (apple.ready) {
-    return '<span style="color:var(--green)">Ready — language packs installed (works offline)</span>';
+    setStatus(el, 'var(--green)', t('translation.appleReady'));
+    return;
   }
   if (apple.status === 'supported') {
-    return '<span style="color:var(--yellow)">Supported but not downloaded — install language packs in System Settings → Language & Region or the Translate app</span>';
+    setStatus(el, 'var(--yellow)', t('translation.appleSupported'));
+    return;
   }
-  return '<span style="color:var(--yellow)">Checking language availability…</span>';
+  setStatus(el, 'var(--yellow)', t('translation.appleChecking'));
 }
 
 export async function refreshTranslationStatus() {
@@ -80,38 +87,37 @@ export async function refreshTranslationStatus() {
     const lines = Object.entries(data.pairs || {}).map(([name, ok]) => (ok ? '✓ ' : '✗ ') + name);
     if (el) {
       if (data.backend === 'openrouter') {
-        el.innerHTML =
-          '<span style="color:var(--yellow)">OpenRouter selected — configure API key below</span>';
+        setStatus(el, 'var(--yellow)', t('translation.openrouterSelected'));
       } else if (data.backend === 'apple') {
-        el.innerHTML =
-          '<span style="color:var(--yellow)">Banyan Translate selected — see panel below</span>';
+        setStatus(el, 'var(--yellow)', t('translation.appleSelected'));
       } else if (data.ready) {
-        let polishNote =
-          data.polish_enabled && !data.polish_active && data.polish_disabled_reason
-            ? ' · <span style="color:var(--yellow)">Polish: ' +
-              data.polish_disabled_reason +
-              '</span>'
-            : data.polish_enabled && data.polish_active
-              ? ' · polish: ' + (data.polish_model || 'Qwen2.5-0.5B')
-              : '';
-        el.innerHTML =
-          '<span style="color:var(--green)">Ready — ' +
-          lines.join(', ') +
-          polishNote +
-          '</span>';
+        let polishNote = '';
+        if (data.polish_enabled && !data.polish_active && data.polish_disabled_reason) {
+          polishNote = t('translation.polishReason', { reason: data.polish_disabled_reason });
+        } else if (data.polish_enabled && data.polish_active) {
+          polishNote = t('translation.polishActive', {
+            model: data.polish_model || 'Qwen2.5-0.5B',
+          });
+        }
+        setStatus(
+          el,
+          'var(--green)',
+          t('translation.ready', { pairs: lines.join(', '), polish: polishNote })
+        );
       } else {
-        el.innerHTML =
-          '<span style="color:var(--yellow)">Models missing: ' +
-          lines.join(', ') +
-          '. Click Download models (~600 MB).</span>';
+        setStatus(
+          el,
+          'var(--yellow)',
+          t('translation.modelsMissing', { pairs: lines.join(', ') })
+        );
       }
     }
     if (appleEl) {
-      appleEl.innerHTML = appleStatusHtml(data.apple);
+      renderAppleTranslationStatus(appleEl, data.apple);
     }
   } catch {
-    if (el) el.textContent = 'Could not check translation models';
-    if (appleEl) appleEl.textContent = 'Could not check Banyan Translate';
+    if (el) el.textContent = t('translation.checkFailed');
+    if (appleEl) appleEl.textContent = t('translation.appleCheckFailed');
   }
 }
 

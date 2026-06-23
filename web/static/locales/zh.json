@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "正在连接服务器…",
+    "connected": "已连接 — 按开始翻译",
+    "connectedHeader": "已连接"
+  },
+  "header": {
+    "stopped": "已停止",
+    "start": "开始"
+  },
+  "controls": {
+    "logs": "日志",
+    "micOut": "麦克风输出",
+    "micIn": "麦克风输入",
+    "tabAudio": "标签页音频",
+    "monitor": "监听",
+    "compact": "紧凑",
+    "saved": "已保存",
+    "history": "历史",
+    "export": "导出",
+    "clear": "清除",
+    "settings": "设置"
+  },
+  "settings": {
+    "title": "设置",
+    "uiLocale": "界面语言",
+    "uiLocaleSystem": "系统默认 ({locale})",
+    "saveRestart": "保存并重启"
+  },
+  "logs": {
+    "title": "日志",
+    "clear": "清除",
+    "empty": "暂无错误或警告"
+  },
+  "common": {
+    "connecting": "连接中…",
+    "downloadFailed": "下载失败：{error}",
+    "downloaded": "已下载！",
+    "none": "无"
+  },
+  "voice": {
+    "noTts": "没有 {lang} 的 TTS 语音。翻译将无音频。",
+    "downloadDefault": "下载 {lang} 语音并重启",
+    "installed": "已安装 {lang} 语音！",
+    "noVoices": "没有 {lang} 的语音",
+    "downloadedGroup": "已下载",
+    "availableGroup": "可用 ({count})",
+    "labelIn": "{lang} 语音（我听到的）",
+    "labelOut": "{lang} 语音（对方听到的）"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper 已禁用 — 云端 Deepgram",
+    "whisperDisabledApple": "Whisper 已禁用 — Banyan Speech",
+    "deepgramActive": "活动：Deepgram {model} · 流式",
+    "deepgramNeedKey": "请在下方输入 Deepgram 密钥",
+    "localActive": "活动：{model} · {device}",
+    "localMeta": "已选：{selected} · 已安装：{installed}",
+    "localNeedModel": "需要 whisper-{need} ({format})。点击下载。",
+    "localInstalled": "已安装：{installed}",
+    "checkFailed": "无法检查 STT 模型",
+    "appleHelperMissing": "Banyan Speech 助手未编译",
+    "appleUnavailable": "您的语言不支持语音识别",
+    "appleReady": "就绪 — Banyan Speech{onDevice}",
+    "appleOnDevice": " · 设备端",
+    "appleDenied": "请在系统设置中允许 Banyan Speech",
+    "appleGrant": "Banyan Speech 可用 — 首次使用时请授权"
+  },
+  "translation": {
+    "openrouterSelected": "已选 OpenRouter — API 密钥在下方",
+    "appleSelected": "已选 Banyan Translate — 见下方面板",
+    "ready": "就绪 — {pairs}{polish}",
+    "polishReason": " · 润色：{reason}",
+    "polishActive": " · 润色：{model}",
+    "modelsMissing": "缺少模型：{pairs}。下载（约 600 MB）。",
+    "checkFailed": "无法检查翻译模型",
+    "appleCheckFailed": "无法检查 Banyan Translate",
+    "appleHelperMissing": "Banyan Translate 助手未编译（macOS 14.4+）",
+    "applePairUnsupported": "Banyan Translate 不支持此语言对",
+    "appleReady": "就绪 — 已安装语言包（离线）",
+    "appleSupported": "支持但未下载 — 请安装语言包",
+    "appleChecking": "正在检查语言…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

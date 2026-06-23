@@ -71,6 +71,7 @@ impl Default for Settings {
         fields.insert("endpointing_ms".into(), Value::from(500));
         fields.insert("my_language".into(), Value::String("ru".into()));
         fields.insert("their_language".into(), Value::String("en".into()));
+        fields.insert("ui_locale".into(), Value::String(String::new()));
         Self { fields }
     }
 }
@@ -154,6 +155,26 @@ impl Settings {
             .and_then(|v| v.as_str())
             .unwrap_or("")
             .to_string()
+    }
+
+    /// OS locale from LANG / LC_* (e.g. `en-US`, `ru-RU`).
+    pub fn system_ui_locale() -> String {
+        std::env::var("LANG")
+            .or_else(|_| std::env::var("LC_ALL"))
+            .or_else(|_| std::env::var("LC_MESSAGES"))
+            .map(|s| normalize_ui_locale(&s))
+            .unwrap_or_else(|_| "en".into())
+    }
+
+    /// User override or system locale, mapped to a supported UI catalog.
+    pub fn effective_ui_locale(&self) -> String {
+        let chosen = self.str_field("ui_locale");
+        let code = if chosen.is_empty() {
+            Self::system_ui_locale()
+        } else {
+            chosen
+        };
+        supported_ui_locale(&code)
     }
 
     pub fn u32_field(&self, key: &str, default: u32) -> u32 {
@@ -488,4 +509,23 @@ pub fn stt_status() -> serde_json::Value {
         "metal_available": audio_core::platform::Capabilities::current().whisper_metal,
         "apple": apple,
     })
+}
+
+fn normalize_ui_locale(raw: &str) -> String {
+    let base = raw.split('.').next().unwrap_or(raw);
+    let base = base.split('@').next().unwrap_or(base);
+    base.replace('_', "-").to_lowercase()
+}
+
+fn supported_ui_locale(code: &str) -> String {
+    const SUPPORTED: &[&str] = &[
+        "en", "ru", "de", "fr", "es", "it", "pt", "pl", "uk", "zh", "ar", "tr", "vi", "hi", "nl",
+        "sv", "cs", "da", "fi",
+    ];
+    let base = code.split('-').next().unwrap_or(code);
+    if SUPPORTED.contains(&base) {
+        base.into()
+    } else {
+        "en".into()
+    }
 }

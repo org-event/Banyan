@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Connecting to server…",
+    "connected": "Connected — press Start to translate",
+    "connectedHeader": "Connected"
+  },
+  "header": {
+    "stopped": "Stopped",
+    "start": "Start"
+  },
+  "controls": {
+    "logs": "Logs",
+    "micOut": "Mic Out",
+    "micIn": "Mic In",
+    "tabAudio": "Tab Audio",
+    "monitor": "Monitor",
+    "compact": "Compact",
+    "saved": "Saved",
+    "history": "History",
+    "export": "Export",
+    "clear": "Clear",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "uiLocale": "Interface language",
+    "uiLocaleSystem": "System default ({locale})",
+    "saveRestart": "Save & Restart Engine"
+  },
+  "logs": {
+    "title": "Logs",
+    "clear": "Clear",
+    "empty": "No errors or warnings yet"
+  },
+  "common": {
+    "connecting": "Connecting…",
+    "downloadFailed": "Download failed: {error}",
+    "downloaded": "Downloaded!",
+    "none": "none"
+  },
+  "voice": {
+    "noTts": "No TTS voice exists for {lang}. Translation will work but without audio output.",
+    "downloadDefault": "Download {lang} default voice & restart engine",
+    "installed": "{lang} voice installed!",
+    "noVoices": "No voices for {lang}",
+    "downloadedGroup": "Downloaded",
+    "availableGroup": "Available ({count})",
+    "labelIn": "{lang} Voice (I hear)",
+    "labelOut": "{lang} Voice (they hear)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper disabled — using Deepgram cloud",
+    "whisperDisabledApple": "Whisper disabled — using Banyan Speech",
+    "deepgramActive": "Active: Deepgram {model} · streaming",
+    "deepgramNeedKey": "Set Deepgram API key below",
+    "localActive": "Active: {model} · {device}",
+    "localMeta": "Selected: {selected} · Installed: {installed}",
+    "localNeedModel": "Need whisper-{need} ({format}). Click Download selected.",
+    "localInstalled": "Installed: {installed}",
+    "checkFailed": "Could not check STT model",
+    "appleHelperMissing": "Banyan Speech helper not built",
+    "appleUnavailable": "Speech recognition not available for your language on this Mac",
+    "appleReady": "Ready — Banyan Speech{onDevice}",
+    "appleOnDevice": " · on-device",
+    "appleDenied": "Allow Banyan Speech in System Settings → Privacy & Security → Speech Recognition",
+    "appleGrant": "Banyan Speech available — grant permission on first use"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter selected — configure API key below",
+    "appleSelected": "Banyan Translate selected — see panel below",
+    "ready": "Ready — {pairs}{polish}",
+    "polishReason": " · Polish: {reason}",
+    "polishActive": " · polish: {model}",
+    "modelsMissing": "Models missing: {pairs}. Click Download models (~600 MB).",
+    "checkFailed": "Could not check translation models",
+    "appleCheckFailed": "Could not check Banyan Translate",
+    "appleHelperMissing": "Banyan Translate helper not built (macOS 14.4+ required)",
+    "applePairUnsupported": "This language pair is not supported by Banyan Translate on this Mac",
+    "appleReady": "Ready — language packs installed (works offline)",
+    "appleSupported": "Supported but not downloaded — install language packs in System Settings → Language & Region or the Translate app",
+    "appleChecking": "Checking language availability…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

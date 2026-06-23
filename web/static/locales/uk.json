@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Підключення до сервера…",
+    "connected": "Підключено — натисніть Старт для перекладу",
+    "connectedHeader": "Підключено"
+  },
+  "header": {
+    "stopped": "Зупинено",
+    "start": "Старт"
+  },
+  "controls": {
+    "logs": "Логи",
+    "micOut": "Мікрофон",
+    "micIn": "Вхід дзвінка",
+    "tabAudio": "Звук вкладки",
+    "monitor": "Монітор",
+    "compact": "Компакт",
+    "saved": "Закладки",
+    "history": "Історія",
+    "export": "Експорт",
+    "clear": "Очистити",
+    "settings": "Налаштування"
+  },
+  "settings": {
+    "title": "Налаштування",
+    "uiLocale": "Мова інтерфейсу",
+    "uiLocaleSystem": "Як у системі ({locale})",
+    "saveRestart": "Зберегти та перезапустити"
+  },
+  "logs": {
+    "title": "Логи",
+    "clear": "Очистити",
+    "empty": "Помилок і попереджень поки немає"
+  },
+  "common": {
+    "connecting": "Підключення…",
+    "downloadFailed": "Помилка завантаження: {error}",
+    "downloaded": "Завантажено!",
+    "none": "немає"
+  },
+  "voice": {
+    "noTts": "Немає голосу TTS для {lang}. Переклад буде без озвучки.",
+    "downloadDefault": "Завантажити голос {lang} і перезапустити",
+    "installed": "Голос {lang} встановлено!",
+    "noVoices": "Немає голосів для {lang}",
+    "downloadedGroup": "Завантажено",
+    "availableGroup": "Доступно ({count})",
+    "labelIn": "Голос {lang} (я чую)",
+    "labelOut": "Голос {lang} (вони чують)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper вимкнено — Deepgram у хмарі",
+    "whisperDisabledApple": "Whisper вимкнено — Banyan Speech",
+    "deepgramActive": "Активно: Deepgram {model} · потік",
+    "deepgramNeedKey": "Вкажіть ключ Deepgram нижче",
+    "localActive": "Активно: {model} · {device}",
+    "localMeta": "Обрано: {selected} · Встановлено: {installed}",
+    "localNeedModel": "Потрібен whisper-{need} ({format}). Натисніть «Завантажити».",
+    "localInstalled": "Встановлено: {installed}",
+    "checkFailed": "Не вдалося перевірити модель STT",
+    "appleHelperMissing": "Помічник Banyan Speech не зібрано",
+    "appleUnavailable": "Розпізнавання мови недоступне для вашої мови",
+    "appleReady": "Готово — Banyan Speech{onDevice}",
+    "appleOnDevice": " · на пристрої",
+    "appleDenied": "Дозвольте Banyan Speech у Налаштуваннях системи",
+    "appleGrant": "Banyan Speech доступний — надайте дозвіл при першому запуску"
+  },
+  "translation": {
+    "openrouterSelected": "Обрано OpenRouter — ключ API нижче",
+    "appleSelected": "Обрано Banyan Translate — див. панель нижче",
+    "ready": "Готово — {pairs}{polish}",
+    "polishReason": " · Полірування: {reason}",
+    "polishActive": " · полірування: {model}",
+    "modelsMissing": "Немає моделей: {pairs}. Завантажте (~600 МБ).",
+    "checkFailed": "Не вдалося перевірити моделі перекладу",
+    "appleCheckFailed": "Не вдалося перевірити Banyan Translate",
+    "appleHelperMissing": "Помічник Banyan Translate не зібрано (macOS 14.4+)",
+    "applePairUnsupported": "Ця пара мов не підтримується Banyan Translate",
+    "appleReady": "Готово — мовні пакети встановлено (офлайн)",
+    "appleSupported": "Підтримується, але не завантажено — встановіть мовні пакети",
+    "appleChecking": "Перевірка мов…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

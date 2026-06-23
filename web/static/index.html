@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Live Translator</title>
-<link rel="stylesheet" href="/static/css/style.css?v=4">
+<title>Banyan</title>
+<link rel="icon" href="/static/img/banyan.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/css/style.css?v=5">
 </head>
 <body>
 
 <!-- Loading overlay -->
 <div id="overlay">
   <div class="spinner" id="spinner"></div>
-  <p id="overlay-text">Connecting to server…</p>
+  <p id="overlay-text" data-i18n="app.connecting">Connecting to server…</p>
 </div>
 
 <!-- Settings backdrop -->
@@ -23,21 +24,21 @@
 <!-- Log panel (left) -->
 <div class="lp" id="lp">
   <div class="lp-head">
-    <h2>Logs</h2>
+    <h2 data-i18n="logs.title">Logs</h2>
     <div class="lp-head-actions">
-      <button type="button" class="lp-action" id="btn-log-clear" onclick="clearLogs()">Clear</button>
+      <button type="button" class="lp-action" id="btn-log-clear" onclick="clearLogs()" data-i18n="logs.clear">Clear</button>
       <button type="button" class="lp-close" onclick="closeLogs()">&times;</button>
     </div>
   </div>
   <div class="lp-body" id="log-list">
-    <div class="lp-empty" id="log-empty">No errors or warnings yet</div>
+    <div class="lp-empty" id="log-empty" data-i18n="logs.empty">No errors or warnings yet</div>
   </div>
 </div>
 
 <!-- Settings panel -->
 <div class="sp" id="sp">
   <div class="sp-head">
-    <h2>Settings</h2>
+    <h2 data-i18n="settings.title">Settings</h2>
     <button class="sp-close" onclick="closeSettings()">&times;</button>
   </div>
   <div class="sp-body">
@@ -314,6 +315,10 @@
       </div>
       <div class="sp-section-body">
         <div class="sp-field">
+          <div class="sp-label" data-i18n="settings.uiLocale">Interface language</div>
+          <select class="sp-input" id="cfg-ui-locale"></select>
+        </div>
+        <div class="sp-field">
           <div class="sp-label">STT Endpointing (sentence boundary sensitivity)</div>
           <div class="sp-slider-wrap">
             <input type="range" class="sp-slider" id="cfg-endpointing" min="100" max="1000" step="50" value="500">
@@ -332,21 +337,24 @@
     <button class="restart-btn" id="restart-btn" onclick="saveAndRestart()">
       <span class="ring"></span>
       <span class="progress-bar" id="restart-progress"></span>
-      <span class="restart-text" id="restart-text">Save &amp; Restart Engine</span>
+      <span class="restart-text" id="restart-text" data-i18n="settings.saveRestart">Save &amp; Restart Engine</span>
     </button>
   </div>
 </div>
 
 <!-- Main UI -->
 <header>
-  <h1>Live Translator</h1>
+  <div class="brand">
+    <img class="brand-logo" src="/static/img/banyan.svg" width="28" height="28" alt="">
+    <h1 data-i18n="app.title">Banyan</h1>
+  </div>
   <div class="header-controls">
     <span id="timer">0:00</span>
     <div class="engine-pill stopped" id="engine-pill">
       <span class="engine-dot"></span>
-      <span id="engine-label">Stopped</span>
+      <span id="engine-label" data-i18n="header.stopped">Stopped</span>
     </div>
-    <div id="status">Connected</div>
+    <div id="status" data-i18n="app.connectedHeader">Connected</div>
     <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme"></button>
   </div>
 </header>
@@ -354,55 +362,55 @@
 <div class="controls">
   <button class="btn btn-engine stopped" id="btn-engine" onclick="toggleEngine()">
     <span class="engine-icon" id="engine-icon">&#9654;</span>
-    <span id="engine-toggle-text">Start</span>
+    <span id="engine-toggle-text" data-i18n="header.start">Start</span>
   </button>
   <button class="btn btn-icon" id="btn-logs" onclick="openLogs()" title="Errors &amp; warnings">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5L1.5 13h13L8 1.5z"/><path d="M8 6v3.5M8 11.5v.5" stroke-linecap="round"/></svg>
-    Logs
+    <span data-i18n="controls.logs">Logs</span>
     <span class="log-badge hidden" id="log-badge">0</span>
   </button>
   <div class="btn-sep"></div>
   <button class="btn active" id="btn-mic-out" onclick="toggleMute('outgoing')" title="Your microphone (outgoing). Green = on, grey = muted.">
-    <span class="dot"></span> Mic Out
+    <span class="dot"></span> <span data-i18n="controls.micOut">Mic Out</span>
   </button>
   <button class="btn muted" id="btn-mic-in" onclick="toggleMute('incoming')" title="Incoming call audio (their speech). Mute during solo test to avoid echo loop.">
-    <span class="dot"></span> Mic In
+    <span class="dot"></span> <span data-i18n="controls.micIn">Mic In</span>
   </button>
   <div class="btn-sep"></div>
   <button class="btn btn-icon" id="btn-tab-capture" onclick="toggleTabCapture()" title="Capture audio from a browser tab (replaces BlackHole for incoming)">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5A1.5 1.5 0 014.5 1h7A1.5 1.5 0 0113 2.5v11a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 013 13.5v-11zM4.5 2a.5.5 0 00-.5.5v11a.5.5 0 00.5.5h7a.5.5 0 00.5-.5v-11a.5.5 0 00-.5-.5h-7z" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M6 5h4v1H6zm0 2.5h4v1H6zm0 2.5h3v1H6z" opacity="0.5"/></svg>
-    Tab Audio
+    <span data-i18n="controls.tabAudio">Tab Audio</span>
   </button>
   <button class="btn btn-icon" id="btn-monitor" onclick="toggleMonitor()" title="Play translations in browser">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3a1 1 0 011-1h4l2 2h4a1 1 0 011 1v7a1 1 0 01-1 1H3a1 1 0 01-1-1V3z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 7v3l2.5-1.5L6.5 7z"/></svg>
-    Monitor
+    <span data-i18n="controls.monitor">Monitor</span>
   </button>
   <div class="btn-sep"></div>
   <button class="btn btn-icon" id="btn-compact" onclick="toggleCompact()" title="Compact mode">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 4h12v1.5H2zm0 3.25h8v1.5H2zm0 3.25h10v1.5H2z"/></svg>
-    Compact
+    <span data-i18n="controls.compact">Compact</span>
   </button>
   <button class="btn btn-icon" id="btn-bookmarks" onclick="toggleBookmarkFilter()" title="Bookmarks">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2h8v12l-4-2.5L4 14V2z"/></svg>
-    Saved
+    <span data-i18n="controls.saved">Saved</span>
   </button>
   <span class="spacer"></span>
   <a href="/history" class="btn btn-icon" id="btn-history" title="Call history">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.5 1.5"/></svg>
-    History
+    <span data-i18n="controls.history">History</span>
   </a>
   <button class="btn btn-icon" id="btn-export" onclick="exportChat()" title="Export transcript">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 12h10"/></svg>
-    Export
+    <span data-i18n="controls.export">Export</span>
   </button>
   <button class="btn btn-icon" id="btn-clear" onclick="clearAll()" title="Clear chat">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h8l-.5 8.5a1 1 0 01-1 .5H5.5a1 1 0 01-1-.5L4 5zM3 4h10M6 4V2.5h4V4"/></svg>
-    Clear
+    <span data-i18n="controls.clear">Clear</span>
   </button>
   <div class="btn-sep"></div>
   <button class="btn btn-icon btn-settings-main" id="btn-settings" onclick="openSettings()" title="Settings">
     <svg class="gear-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4.1 4.1l2.1 2.1M13.8 13.8l2.1 2.1M4.1 15.9l2.1-2.1M13.8 6.2l2.1-2.1"/></svg>
-    Settings
+    <span data-i18n="controls.settings">Settings</span>
   </button>
 </div>
 
@@ -423,6 +431,6 @@
 </footer>
 
 <script src="/static/js/tooltips.js"></script>
-<script type="module" src="/static/js/main.js?v=15"></script>
+<script type="module" src="/static/js/main.js?v=16"></script>
 </body>
 </html>

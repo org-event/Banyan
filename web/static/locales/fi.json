@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Yhdistetään palvelimeen…",
+    "connected": "Yhdistetty — paina Käynnistä kääntääksesi",
+    "connectedHeader": "Yhdistetty"
+  },
+  "header": {
+    "stopped": "Pysäytetty",
+    "start": "Käynnistä"
+  },
+  "controls": {
+    "logs": "Lokit",
+    "micOut": "Mikrofoni ulos",
+    "micIn": "Mikrofoni sisään",
+    "tabAudio": "Välilehden ääni",
+    "monitor": "Monitori",
+    "compact": "Kompakti",
+    "saved": "Tallennetut",
+    "history": "Historia",
+    "export": "Vie",
+    "clear": "Tyhjennä",
+    "settings": "Asetukset"
+  },
+  "settings": {
+    "title": "Asetukset",
+    "uiLocale": "Käyttöliittymän kieli",
+    "uiLocaleSystem": "Järjestelmän oletus ({locale})",
+    "saveRestart": "Tallenna ja käynnistä uudelleen"
+  },
+  "logs": {
+    "title": "Lokit",
+    "clear": "Tyhjennä",
+    "empty": "Ei virheitä tai varoituksia vielä"
+  },
+  "common": {
+    "connecting": "Yhdistetään…",
+    "downloadFailed": "Lataus epäonnistui: {error}",
+    "downloaded": "Ladattu!",
+    "none": "ei mitään"
+  },
+  "voice": {
+    "noTts": "Ei TTS-ääntä kielelle {lang}. Käännös ilman ääntä.",
+    "downloadDefault": "Lataa {lang}-ääni ja käynnistä uudelleen",
+    "installed": "{lang}-ääni asennettu!",
+    "noVoices": "Ei ääniä kielelle {lang}",
+    "downloadedGroup": "Ladatut",
+    "availableGroup": "Saatavilla ({count})",
+    "labelIn": "{lang}-ääni (kuulen)",
+    "labelOut": "{lang}-ääni (he kuulevat)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper pois käytöstä — pilvi Deepgram",
+    "whisperDisabledApple": "Whisper pois käytöstä — Banyan Speech",
+    "deepgramActive": "Aktiivinen: Deepgram {model} · suoratoisto",
+    "deepgramNeedKey": "Syötä Deepgram-avain alle",
+    "localActive": "Aktiivinen: {model} · {device}",
+    "localMeta": "Valittu: {selected} · Asennettu: {installed}",
+    "localNeedModel": "Tarvitaan whisper-{need} ({format}). Napsauta Lataa.",
+    "localInstalled": "Asennettu: {installed}",
+    "checkFailed": "STT-mallia ei voitu tarkistaa",
+    "appleHelperMissing": "Banyan Speech -apuri ei käännetty",
+    "appleUnavailable": "Puheentunnistus ei ole käytettävissä kielellesi",
+    "appleReady": "Valmis — Banyan Speech{onDevice}",
+    "appleOnDevice": " · laitteella",
+    "appleDenied": "Salli Banyan Speech Järjestelmäasetuksissa",
+    "appleGrant": "Banyan Speech käytettävissä — myönnä lupa ensimmäisellä käytöllä"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter valittu — API-avain alla",
+    "appleSelected": "Banyan Translate valittu — katso paneeli alla",
+    "ready": "Valmis — {pairs}{polish}",
+    "polishReason": " · Kiillotus: {reason}",
+    "polishActive": " · kiillotus: {model}",
+    "modelsMissing": "Puuttuvat mallit: {pairs}. Lataa (~600 MB).",
+    "checkFailed": "Käännösmalleja ei voitu tarkistaa",
+    "appleCheckFailed": "Banyan Translatea ei voitu tarkistaa",
+    "appleHelperMissing": "Banyan Translate -apuri ei käännetty (macOS 14.4+)",
+    "applePairUnsupported": "Kielipari ei ole Banyan Translaten tuella",
+    "appleReady": "Valmis — kielipaketit asennettu (offline)",
+    "appleSupported": "Tuettu mutta ei ladattu — asenna kielipaketit",
+    "appleChecking": "Tarkistetaan kieliä…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

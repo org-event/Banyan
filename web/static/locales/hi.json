@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "सर्वर से कनेक्ट हो रहा है…",
+    "connected": "कनेक्ट — अनुवाद के लिए शुरू दबाएँ",
+    "connectedHeader": "कनेक्ट"
+  },
+  "header": {
+    "stopped": "रुका",
+    "start": "शुरू"
+  },
+  "controls": {
+    "logs": "लॉग",
+    "micOut": "माइक आउट",
+    "micIn": "माइक इन",
+    "tabAudio": "टैब ऑडियो",
+    "monitor": "मॉनिटर",
+    "compact": "कॉम्पैक्ट",
+    "saved": "सहेजे",
+    "history": "इतिहास",
+    "export": "निर्यात",
+    "clear": "साफ़",
+    "settings": "सेटिंग्स"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "uiLocale": "इंटरफ़ेस भाषा",
+    "uiLocaleSystem": "सिस्टम डिफ़ॉल्ट ({locale})",
+    "saveRestart": "सहेजें और पुनः आरंभ"
+  },
+  "logs": {
+    "title": "लॉग",
+    "clear": "साफ़",
+    "empty": "अभी कोई त्रुटि या चेतावनी नहीं"
+  },
+  "common": {
+    "connecting": "कनेक्ट हो रहा है…",
+    "downloadFailed": "डाउनलोड विफल: {error}",
+    "downloaded": "डाउनलोड हो गया!",
+    "none": "कोई नहीं"
+  },
+  "voice": {
+    "noTts": "{lang} के लिए TTS आवाज़ नहीं। अनुवाद बिना ऑडियो।",
+    "downloadDefault": "{lang} आवाज़ डाउनलोड करें और पुनः आरंभ",
+    "installed": "{lang} आवाज़ स्थापित!",
+    "noVoices": "{lang} के लिए कोई आवाज़ नहीं",
+    "downloadedGroup": "डाउनलोड",
+    "availableGroup": "उपलब्ध ({count})",
+    "labelIn": "{lang} आवाज़ (मैं सुनता हूँ)",
+    "labelOut": "{lang} आवाज़ (वे सुनते हैं)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper अक्षम — क्लाउड Deepgram",
+    "whisperDisabledApple": "Whisper अक्षम — Banyan Speech",
+    "deepgramActive": "सक्रिय: Deepgram {model} · स्ट्रीमिंग",
+    "deepgramNeedKey": "नीचे Deepgram कुंजी दर्ज करें",
+    "localActive": "सक्रिय: {model} · {device}",
+    "localMeta": "चयनित: {selected} · स्थापित: {installed}",
+    "localNeedModel": "whisper-{need} ({format}) चाहिए। डाउनलोड दबाएँ।",
+    "localInstalled": "स्थापित: {installed}",
+    "checkFailed": "STT मॉडल जाँच नहीं हो सकी",
+    "appleHelperMissing": "Banyan Speech हेल्पर संकलित नहीं",
+    "appleUnavailable": "आपकी भाषा के लिए वाक् पहचान उपलब्ध नहीं",
+    "appleReady": "तैयार — Banyan Speech{onDevice}",
+    "appleOnDevice": " · डिवाइस पर",
+    "appleDenied": "सिस्टम सेटिंग्स में Banyan Speech की अनुमति दें",
+    "appleGrant": "Banyan Speech उपलब्ध — पहले उपयोग पर अनुमति दें"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter चयनित — API कुंजी नीचे",
+    "appleSelected": "Banyan Translate चयनित — नीचे पैनल देखें",
+    "ready": "तैयार — {pairs}{polish}",
+    "polishReason": " · पॉलिश: {reason}",
+    "polishActive": " · पॉलिश: {model}",
+    "modelsMissing": "मॉडल गायब: {pairs}। डाउनलोड (~600 MB)।",
+    "checkFailed": "अनुवाद मॉडल जाँच नहीं हो सके",
+    "appleCheckFailed": "Banyan Translate जाँच नहीं हो सकी",
+    "appleHelperMissing": "Banyan Translate हेल्पर संकलित नहीं (macOS 14.4+)",
+    "applePairUnsupported": "भाषा जोड़ी Banyan Translate द्वारा समर्थित नहीं",
+    "appleReady": "तैयार — भाषा पैक स्थापित (ऑफ़लाइन)",
+    "appleSupported": "समर्थित लेकिन डाउनलोड नहीं — भाषा पैक स्थापित करें",
+    "appleChecking": "भाषाएँ जाँची जा रही हैं…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

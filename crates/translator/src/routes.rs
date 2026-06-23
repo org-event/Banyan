@@ -206,6 +206,11 @@ async fn get_settings(State(state): State<Arc<AppState>>) -> Json<Value> {
         json!(audio_core::stt::local::default_stt_device_name()),
     );
     out.insert("_local_stt".into(), stt_status());
+    out.insert("_system_locale".into(), json!(Settings::system_ui_locale()));
+    out.insert(
+        "_effective_ui_locale".into(),
+        json!(settings.effective_ui_locale()),
+    );
     Json(Value::Object(out))
 }
 

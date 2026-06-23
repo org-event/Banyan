@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Connexion au serveur…",
+    "connected": "Connecté — appuyez sur Démarrer",
+    "connectedHeader": "Connecté"
+  },
+  "header": {
+    "stopped": "Arrêté",
+    "start": "Démarrer"
+  },
+  "controls": {
+    "logs": "Journaux",
+    "micOut": "Micro sort.",
+    "micIn": "Micro entr.",
+    "tabAudio": "Audio onglet",
+    "monitor": "Moniteur",
+    "compact": "Compact",
+    "saved": "Favoris",
+    "history": "Historique",
+    "export": "Exporter",
+    "clear": "Effacer",
+    "settings": "Réglages"
+  },
+  "settings": {
+    "title": "Réglages",
+    "uiLocale": "Langue de l'interface",
+    "uiLocaleSystem": "Par défaut du système ({locale})",
+    "saveRestart": "Enregistrer et redémarrer"
+  },
+  "logs": {
+    "title": "Journaux",
+    "clear": "Effacer",
+    "empty": "Aucune erreur ni avertissement"
+  },
+  "common": {
+    "connecting": "Connexion…",
+    "downloadFailed": "Échec du téléchargement : {error}",
+    "downloaded": "Téléchargé !",
+    "none": "aucun"
+  },
+  "voice": {
+    "noTts": "Pas de voix TTS pour {lang}. Traduction sans audio.",
+    "downloadDefault": "Télécharger la voix {lang} et redémarrer",
+    "installed": "Voix {lang} installée !",
+    "noVoices": "Aucune voix pour {lang}",
+    "downloadedGroup": "Téléchargées",
+    "availableGroup": "Disponibles ({count})",
+    "labelIn": "Voix {lang} (j'entends)",
+    "labelOut": "Voix {lang} (ils entendent)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper désactivé — Deepgram cloud",
+    "whisperDisabledApple": "Whisper désactivé — Banyan Speech",
+    "deepgramActive": "Actif : Deepgram {model} · flux",
+    "deepgramNeedKey": "Clé API Deepgram ci-dessous",
+    "localActive": "Actif : {model} · {device}",
+    "localMeta": "Sélection : {selected} · Installé : {installed}",
+    "localNeedModel": "whisper-{need} ({format}) requis. Télécharger.",
+    "localInstalled": "Installé : {installed}",
+    "checkFailed": "Impossible de vérifier le modèle STT",
+    "appleHelperMissing": "Assistant Banyan Speech non compilé",
+    "appleUnavailable": "Reconnaissance vocale indisponible pour votre langue",
+    "appleReady": "Prêt — Banyan Speech{onDevice}",
+    "appleOnDevice": " · sur l'appareil",
+    "appleDenied": "Autoriser Banyan Speech dans Réglages système",
+    "appleGrant": "Banyan Speech disponible — autoriser à la première utilisation"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter sélectionné — clé API ci-dessous",
+    "appleSelected": "Banyan Translate sélectionné — voir ci-dessous",
+    "ready": "Prêt — {pairs}{polish}",
+    "polishReason": " · Polish : {reason}",
+    "polishActive": " · polish : {model}",
+    "modelsMissing": "Modèles manquants : {pairs}. Télécharger (~600 Mo).",
+    "checkFailed": "Impossible de vérifier les modèles",
+    "appleCheckFailed": "Impossible de vérifier Banyan Translate",
+    "appleHelperMissing": "Assistant Banyan Translate non compilé (macOS 14.4+)",
+    "applePairUnsupported": "Paire de langues non prise en charge",
+    "appleReady": "Prêt — packs linguistiques installés (hors ligne)",
+    "appleSupported": "Pris en charge mais non téléchargé — installer les packs",
+    "appleChecking": "Vérification des langues…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}
