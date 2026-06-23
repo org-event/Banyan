@@ -43,4 +43,14 @@ Target: **Windows 10/11 x64**. Goal for now: **CI builds on `windows-latest`**, 
 
 Native build needs: Rust, CMake, vcpkg OpenBLAS, ONNX Runtime, espeak-ng, Bun (for ESLint). Prefer CI artifact until Phase 2 is done.
 
+**Local Windows CI parity:**
+
+| Command | Where | What |
+|---------|-------|------|
+| `just check-windows-static` | **all hosts** (macOS, Linux, Windows) | In `just prepush`. Fast cfg/import guards — everyone editing cross-platform code. |
+| `just check-windows-clippy` | **native Windows only** | Same as CI `cargo clippy -p translator -p audio-core`. Skips on macOS/Linux. |
+| CI `windows` job | GitHub | Full clippy + release build on `windows-latest`. |
+
+**macOS-only dev extras** (`just install`): **zig** (brew, dev-only cross toolchain, not a Cargo dep). Windows and Linux developers do not install zig or the `x86_64-pc-windows-msvc` rustup target.
+
 See [issue #3](https://github.com/org-event/Banyan/issues/3).

@@ -9,8 +9,8 @@ install: install-rust install-system install-js install-git install-hooks
     @echo ""
     @echo "Dev environment ready."
     @echo "  just check                              # lint before commit"
-    @echo "  just prepush                            # lint before git push"
-    @echo "  just check-windows-static               # cross-platform cfg guard (no MSVC)"
+    @echo "  just prepush                            # lint before git push (incl. Windows static)"
+    @echo "  just check-windows-clippy                 # full win clippy (native Windows only)"
     @echo "  cargo run --release -p translator -- setup   # download models (first run)"
     @echo "  cargo run --release -p translator            # start server"
 
@@ -18,7 +18,7 @@ install: install-rust install-system install-js install-git install-hooks
 check: check-rust check-js check-swift
 
 # Fast gate before git push — same for everyone (git hook via pre-commit).
-# fmt + JS lint; catches the mistakes that broke CI in seconds.
+# fmt + JS lint + Windows static guards (catches cfg/import bugs before CI).
 prepush: prepush-fmt check-js check-windows-static
 
 build:
@@ -45,6 +45,10 @@ install-rust:
       exit 1
     fi
     rustup component add rustfmt clippy 2>/dev/null || true
+    # Cross-target for macOS R&D only; native Windows/Linux use host triple.
+    case "$(uname -s)" in
+      Darwin) rustup target add x86_64-pc-windows-msvc 2>/dev/null || true ;;
+    esac
 
 install-system:
     #!/usr/bin/env bash
@@ -58,6 +62,9 @@ install-system:
         echo "[..] macOS system packages (brew)..."
         brew list espeak-ng &>/dev/null || brew install espeak-ng
         brew list onnxruntime &>/dev/null || brew install onnxruntime
+        # Dev-only cross toolchain (not a Cargo dep — rust-first). Used for Windows R&D; full
+        # `cargo clippy --target windows-msvc` still needs native Windows (OpenBLAS, sentencepiece).
+        brew list zig &>/dev/null || brew install zig
         command -v just >/dev/null || brew install just
         command -v pre-commit >/dev/null || brew install pre-commit
         command -v bun >/dev/null || brew install oven-sh/bun/bun
@@ -68,9 +75,12 @@ install-system:
         echo "[i] Linux: optional runtime libs for local build:"
         echo "    Debian/Ubuntu: sudo apt install espeak-ng libonnxruntime-dev pkg-config"
         echo "    Banyan Speech / Swift checks are skipped on Linux (CI runs them on macOS)."
+        echo "    just prepush includes check-windows-static (fast cfg guards for all hosts)."
         ;;
       MINGW*|MSYS*|CYGWIN*)
-        echo "[i] Windows: use WSL or wait for native port. Rust/JS hooks still work where applicable."
+        echo "[ok] Windows native — no zig/cross-target needed."
+        echo "    just check-windows-clippy  # full clippy, same as CI windows job"
+        echo "    just prepush               # fmt + JS + static cfg guards"
         ;;
       *)
         echo "[i] Unknown OS — install espeak-ng and onnxruntime manually if you build locally."
@@ -132,6 +142,12 @@ check-windows-static:
     set -euo pipefail
     chmod +x scripts/check-windows-lint.sh
     ./scripts/check-windows-lint.sh
+
+check-windows-clippy:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    chmod +x scripts/check-windows-clippy.sh
+    ./scripts/check-windows-clippy.sh
 
 check-swift:
     #!/usr/bin/env bash
