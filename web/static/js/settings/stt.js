@@ -72,19 +72,19 @@ export function updateWhisperHint() {
 
 function appleSttStatusHtml(apple) {
   if (!apple?.helper) {
-    return '<span style="color:var(--yellow)">Apple Speech helper not built</span>';
+    return '<span style="color:var(--yellow)">Banyan Speech helper not built</span>';
   }
   if (!apple.available) {
     return '<span style="color:var(--yellow)">Speech recognition not available for your language on this Mac</span>';
   }
   if (apple.ready) {
     const onDevice = apple.on_device ? ' · on-device' : '';
-    return '<span style="color:var(--green)">Ready — Apple Speech' + onDevice + '</span>';
+    return '<span style="color:var(--green)">Ready — Banyan Speech' + onDevice + '</span>';
   }
   if (apple.authorization === 'denied' || apple.authorization === 'restricted') {
-    return '<span style="color:var(--yellow)">Allow Speech Recognition in System Settings → Privacy & Security</span>';
+    return '<span style="color:var(--yellow)">Allow Banyan Speech in System Settings → Privacy & Security → Speech Recognition</span>';
   }
-  return '<span style="color:var(--yellow)">Apple Speech available — grant permission on first use</span>';
+  return '<span style="color:var(--yellow)">Banyan Speech available — grant permission on first use</span>';
 }
 
 export function updateSttEngineUI() {
@@ -109,7 +109,7 @@ export function updateSttEngineUI() {
           ? 'Active: Whisper ' + dev + ' (auto)'
           : 'Active: Whisper ' + sel.replace('-q8_0', ' q8') + ' · ' + dev;
     } else if (backend === 'apple') {
-      badge.textContent = 'Active: Apple Speech (system, on-device)';
+      badge.textContent = 'Active: Banyan Speech (system, on-device)';
     } else {
       const dgModel = deepgramModelValue();
       badge.textContent = 'Active: Deepgram ' + dgModel;
@@ -147,7 +147,7 @@ export async function refreshSttStatus() {
       if (cloudEl) cloudEl.textContent = '';
       if (localEl) {
         localEl.innerHTML =
-          '<span style="color:var(--text3)">Whisper disabled — using Apple Speech</span>';
+          '<span style="color:var(--text3)">Whisper disabled — using Banyan Speech</span>';
       }
       if (appleEl) appleEl.innerHTML = appleSttStatusHtml(data.apple);
       return;
@@ -215,12 +215,12 @@ export async function downloadWhisperModel() {
 }
 
 export async function requestAppleSpeechAuth() {
-  const btn = document.getElementById('btn-apple-speech-auth');
+  const btn = document.getElementById('btn-banyan-speech-auth');
   if (!btn || btn.classList.contains('loading')) return;
   btn.classList.add('loading');
   btn.textContent = 'Requesting...';
   try {
-    const r = await fetch('/api/apple-speech-authorize', { method: 'POST' });
+    const r = await fetch('/api/banyan-speech-authorize', { method: 'POST' });
     const data = await r.json();
     if (data.error) throw new Error(data.error);
     showToast(data.message || 'Authorization: ' + (data.authorization || 'unknown'));
@@ -229,7 +229,7 @@ export async function requestAppleSpeechAuth() {
     showToast('Failed: ' + e.message);
   }
   btn.classList.remove('loading');
-  btn.textContent = 'Allow Speech Recognition';
+  btn.textContent = 'Allow Banyan Speech';
 }
 
 export function initSttListeners() {

@@ -1,4 +1,4 @@
-//! macOS Apple Translation framework via `apple-translate` helper binary.
+//! macOS system translation via `banyan-translate` helper binary.
 
 #[cfg(target_os = "macos")]
 mod imp {
@@ -8,6 +8,9 @@ mod imp {
     use std::path::PathBuf;
     use std::process::{Command, Stdio};
 
+    use crate::platform::{
+        env_var, ENV_TRANSLATE_HELPER, LEGACY_ENV_TRANSLATE_HELPER, TRANSLATE_BINARY,
+    };
     use crate::translation::TranslationDirection;
 
     #[derive(Debug, Clone, Deserialize)]
@@ -25,7 +28,7 @@ mod imp {
     }
 
     fn helper_path() -> Option<PathBuf> {
-        if let Ok(path) = std::env::var("APPLE_TRANSLATE_HELPER") {
+        if let Some(path) = env_var(ENV_TRANSLATE_HELPER, LEGACY_ENV_TRANSLATE_HELPER) {
             let p = PathBuf::from(path);
             if p.is_file() {
                 return Some(p);
@@ -33,15 +36,17 @@ mod imp {
         }
         if let Ok(exe) = std::env::current_exe() {
             if let Some(dir) = exe.parent() {
-                let p = dir.join("apple-translate");
+                let p = dir.join(TRANSLATE_BINARY);
                 if p.is_file() {
                     return Some(p);
                 }
             }
         }
         [
-            PathBuf::from("bin/apple-translate"),
-            PathBuf::from("tools/apple-translate/.build/release/apple-translate"),
+            PathBuf::from(format!("bin/{TRANSLATE_BINARY}")),
+            PathBuf::from(format!(
+                "tools/banyan-translate/.build/release/{TRANSLATE_BINARY}"
+            )),
         ]
         .into_iter()
         .find(|candidate| candidate.is_file())
@@ -49,9 +54,9 @@ mod imp {
 
     fn run_helper(args: &[&str]) -> Result<HelperResponse> {
         let bin = helper_path().context(
-            "apple-translate helper not found (rebuild on macOS 15+ or set APPLE_TRANSLATE_HELPER)",
+            "banyan-translate helper not found (rebuild on macOS 15+ or set BANYAN_TRANSLATE_HELPER)",
         )?;
-        debug!("apple-translate: {} {}", bin.display(), args.join(" "));
+        debug!("banyan-translate: {} {}", bin.display(), args.join(" "));
 
         let output = Command::new(&bin)
             .args(args)
@@ -65,16 +70,16 @@ mod imp {
         if line.is_empty() {
             let stderr = String::from_utf8_lossy(&output.stderr);
             bail!(
-                "apple-translate returned no output (status={}): {}",
+                "banyan-translate returned no output (status={}): {}",
                 output.status,
                 stderr.trim()
             );
         }
 
         let resp: HelperResponse =
-            serde_json::from_str(line).context("parse apple-translate JSON response")?;
+            serde_json::from_str(line).context("parse banyan-translate JSON response")?;
         if !output.status.success() && resp.error.is_empty() {
-            bail!("apple-translate failed (status={})", output.status);
+            bail!("banyan-translate failed (status={})", output.status);
         }
         Ok(resp)
     }
@@ -108,7 +113,7 @@ mod imp {
     impl AppleTranslateEngine {
         pub fn new() -> Result<Self> {
             if helper_path().is_none() {
-                bail!("Apple Translation helper binary is not available on this system");
+                bail!("Banyan Translate helper binary is not available on this system");
             }
             Ok(Self)
         }
@@ -196,11 +201,11 @@ mod imp {
 
     impl AppleTranslateEngine {
         pub fn new() -> Result<Self> {
-            bail!("Apple Translation is only available on macOS")
+            bail!("Banyan Translate is only available on macOS")
         }
 
         pub fn translate(&self, _text: &str, _direction: &TranslationDirection) -> Result<String> {
-            bail!("Apple Translation is only available on macOS")
+            bail!("Banyan Translate is only available on macOS")
         }
     }
 }

@@ -415,7 +415,9 @@ impl Engine {
             .unwrap_or_else(|_| "local".into())
             .to_lowercase();
         if matches!(stt_mode.as_str(), "apple" | "system" | "macos") {
-            info!("Apple STT selected — speech recognition permission dialog may appear now");
+            info!(
+                "Banyan Speech STT selected — speech recognition permission dialog may appear now"
+            );
         }
         let stt_engine = Arc::new(
             SttEngine::new(
