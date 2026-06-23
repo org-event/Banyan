@@ -1,6 +1,6 @@
 //! Reclaim the HTTP listen port from a stale translator instance.
 
-use log::{info, warn};
+use log::info;
 use std::{thread, time::Duration};
 
 const RECLAIM_WAIT: Duration = Duration::from_millis(300);
@@ -53,7 +53,7 @@ fn terminate_pid(pid: u32) {
     let _ = Command::new("kill").arg(pid.to_string()).status();
     thread::sleep(Duration::from_millis(150));
     if process_alive(pid) {
-        warn!("PID {pid} did not exit, sending SIGKILL");
+        log::warn!("PID {pid} did not exit, sending SIGKILL");
         let _ = Command::new("kill").arg("-9").arg(pid.to_string()).status();
         thread::sleep(Duration::from_millis(100));
     }

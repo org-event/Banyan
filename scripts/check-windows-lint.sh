@@ -39,6 +39,14 @@ for f in crates/audio-core/src/stt/apple.rs crates/audio-core/src/translation/ap
   fi
 done
 
+# Files with both unix and windows cfg must not import unix-only log macros at module root.
+while IFS= read -r f; do
+  if rg -q '^use log::\{[^}]*warn' "$f" || rg -q '^use log::warn\b' "$f"; then
+    echo "[fail] $f: do not import warn at module root when windows cfg exists — use log::warn! in unix-only code"
+    errors=$((errors + 1))
+  fi
+done < <(rg -l '#\[cfg\(windows\)\]' crates/translator/src crates/audio-core/src 2>/dev/null || true)
+
 if [[ "$errors" -gt 0 ]]; then
   echo ""
   echo "$errors cross-platform lint issue(s)."
