@@ -408,7 +408,7 @@ pub fn local_translation_status() -> serde_json::Value {
     let polish_disabled = if !polish_enabled {
         ""
     } else if backend == "apple" {
-        "Not used with Apple Translation"
+        "Not used with Banyan Translate"
     } else if audio_core::translation::is_session_disabled() {
         "Polish unavailable for this session"
     } else if polish_backend == "local" && !polish_ready {
@@ -477,7 +477,7 @@ pub fn stt_status() -> serde_json::Value {
         "model": if backend == "deepgram" {
             format!("deepgram-{deepgram_model}")
         } else if backend == "apple" || backend == "system" || backend == "macos" {
-            format!("apple-speech-{my_lang}")
+            format!("banyan-speech-{my_lang}")
         } else {
             model
         },

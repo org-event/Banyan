@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "apple-speech",
+    name: "banyan-speech",
     platforms: [.macOS(.v14)],
     products: [
-        .executable(name: "apple-speech", targets: ["AppleSpeech"]),
+        .executable(name: "banyan-speech", targets: ["BanyanSpeech"]),
     ],
     targets: [
         .executableTarget(
-            name: "AppleSpeech"
+            name: "BanyanSpeech"
         ),
     ]
 )

@@ -76,7 +76,7 @@ async fn serve() -> Result<()> {
             apply_env(&settings, &models_dir());
             info!("Apple STT configured — requesting speech recognition permission if needed");
             if let Err(e) = audio_core::stt::apple::apple_speech_ensure_authorized() {
-                log::warn!("Apple Speech authorization: {e:#}");
+                log::warn!("Banyan Speech authorization: {e:#}");
             }
         }
     }

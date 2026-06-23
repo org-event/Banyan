@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "apple-translate",
+    name: "BanyanSpeech",
     platforms: [.macOS(.v14)],
     products: [
-        .executable(name: "apple-translate", targets: ["AppleTranslate"]),
+        .executable(name: "BanyanSpeech", targets: ["BanyanSpeechAuth"]),
     ],
     targets: [
-        .executableTarget(name: "AppleTranslate"),
+        .executableTarget(name: "BanyanSpeechAuth"),
     ]
 )

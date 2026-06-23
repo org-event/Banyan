@@ -24,7 +24,7 @@ impl Capabilities {
         if self.apple_stt {
             Ok(())
         } else {
-            anyhow::bail!("Apple Speech STT is only available on macOS")
+            anyhow::bail!("Banyan Speech STT is only available on macOS")
         }
     }
 
@@ -32,7 +32,7 @@ impl Capabilities {
         if self.apple_translation {
             Ok(())
         } else {
-            anyhow::bail!("Apple Translation is only available on macOS")
+            anyhow::bail!("Banyan Translate is only available on macOS")
         }
     }
 }

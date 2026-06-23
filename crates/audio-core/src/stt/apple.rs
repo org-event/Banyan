@@ -1,4 +1,4 @@
-//! macOS Apple Speech framework via `LiveTranslator.app` / `LiveTranslateSpeech` helper.
+//! macOS system speech via `BanyanSpeech.app` helper (Speech framework).
 
 #[cfg(target_os = "macos")]
 mod imp {
@@ -9,6 +9,11 @@ mod imp {
     use std::process::Command;
     use std::sync::OnceLock;
 
+    use crate::platform::{
+        env_var, ENV_SPEECH_AUTH_APP, ENV_SPEECH_CONTEXT, ENV_SPEECH_HELPER,
+        LEGACY_ENV_SPEECH_AUTH_APP, LEGACY_ENV_SPEECH_CONTEXT, LEGACY_ENV_SPEECH_HELPER,
+        SPEECH_AUTH_APP, SPEECH_EXECUTABLE,
+    };
     use crate::stt::local::{TranscribeOutcome, WhisperBackend, WHISPER_SAMPLE_RATE};
 
     #[derive(Debug, Deserialize)]
@@ -31,8 +36,14 @@ mod imp {
         error: String,
     }
 
+    fn bundled_speech_binary(base: &std::path::Path) -> PathBuf {
+        base.join(SPEECH_AUTH_APP)
+            .join("Contents/MacOS")
+            .join(SPEECH_EXECUTABLE)
+    }
+
     fn helper_path() -> Option<PathBuf> {
-        if let Ok(path) = std::env::var("APPLE_SPEECH_HELPER") {
+        if let Some(path) = env_var(ENV_SPEECH_HELPER, LEGACY_ENV_SPEECH_HELPER) {
             let p = PathBuf::from(path);
             if p.is_file() {
                 return Some(p);
@@ -40,23 +51,21 @@ mod imp {
         }
         if let Ok(exe) = std::env::current_exe() {
             if let Some(dir) = exe.parent() {
-                let bundled = dir
-                    .join("LiveTranslator.app")
-                    .join("Contents/MacOS/LiveTranslateSpeech");
+                let bundled = bundled_speech_binary(dir);
                 if bundled.is_file() {
                     return Some(bundled);
                 }
             }
         }
-        [PathBuf::from(
-            "target/release/LiveTranslator.app/Contents/MacOS/LiveTranslateSpeech",
-        )]
+        [PathBuf::from(format!(
+            "target/release/{SPEECH_AUTH_APP}/Contents/MacOS/{SPEECH_EXECUTABLE}"
+        ))]
         .into_iter()
         .find(|candidate| candidate.is_file())
     }
 
     fn auth_app_path() -> Option<PathBuf> {
-        if let Ok(path) = std::env::var("APPLE_SPEECH_AUTH_APP") {
+        if let Some(path) = env_var(ENV_SPEECH_AUTH_APP, LEGACY_ENV_SPEECH_AUTH_APP) {
             let p = PathBuf::from(path);
             if p.is_dir() {
                 return Some(p);
@@ -64,30 +73,30 @@ mod imp {
         }
         if let Ok(exe) = std::env::current_exe() {
             if let Some(dir) = exe.parent() {
-                let p = dir.join("LiveTranslator.app");
+                let p = dir.join(SPEECH_AUTH_APP);
                 if p.is_dir() {
                     return Some(p);
                 }
             }
         }
         [
-            PathBuf::from("target/release/LiveTranslator.app"),
-            PathBuf::from("tools/apple-speech-auth/LiveTranslator.app"),
+            PathBuf::from(format!("target/release/{SPEECH_AUTH_APP}")),
+            PathBuf::from(format!("tools/banyan-speech-auth/{SPEECH_AUTH_APP}")),
         ]
         .into_iter()
         .find(|candidate| candidate.is_dir())
     }
 
     pub fn request_authorization() -> Result<serde_json::Value> {
-        let app = auth_app_path()
-            .context("LiveTranslator.app not found (rebuild translator on macOS)")?;
+        let app =
+            auth_app_path().context("BanyanSpeech.app not found (rebuild translator on macOS)")?;
         let out = std::env::temp_dir().join(format!(
             "call-translator-speech-auth-{}.json",
             std::process::id()
         ));
         let _ = std::fs::remove_file(&out);
 
-        log::info!("Opening speech recognition permission dialog (LiveTranslator.app)...");
+        log::info!("Opening speech recognition permission dialog (BanyanSpeech.app)...");
         let status = Command::new("open")
             .arg("-W")
             .arg("-a")
@@ -105,7 +114,7 @@ mod imp {
         }
 
         if !status.success() {
-            bail!("LiveTranslator.app exited without granting speech recognition");
+            bail!("BanyanSpeech.app exited without granting speech recognition");
         }
 
         let check = run_helper(
@@ -120,7 +129,7 @@ mod imp {
         Ok(serde_json::json!({
             "authorization": check.as_ref().map(|r| r.authorization.as_str()).unwrap_or("unknown"),
             "ready": check.as_ref().map(|r| r.ready).unwrap_or(false),
-            "message": "Open System Settings → Privacy & Security → Speech Recognition and allow Live Translator.",
+            "message": "Open System Settings → Privacy & Security → Speech Recognition and allow Banyan Speech.",
         }))
     }
 
@@ -131,7 +140,7 @@ mod imp {
             .and_then(|v| v.as_bool())
             .unwrap_or(false)
         {
-            log::info!("Apple Speech already authorized for {lang}");
+            log::info!("Banyan Speech already authorized for {lang}");
             return Ok(());
         }
         log::info!(
@@ -143,7 +152,7 @@ mod imp {
             .and_then(|v| v.as_bool())
             .unwrap_or(false)
         {
-            log::info!("Apple Speech authorized");
+            log::info!("Banyan Speech authorized");
             return Ok(());
         }
         let auth = result
@@ -151,7 +160,7 @@ mod imp {
             .and_then(|v| v.as_str())
             .unwrap_or("unknown");
         bail!(
-            "Speech recognition not authorized ({auth}). Enable Live Translator in System Settings → Privacy & Security → Speech Recognition."
+            "Speech recognition not authorized ({auth}). Enable Banyan Speech in System Settings → Privacy & Security → Speech Recognition."
         );
     }
 
@@ -164,8 +173,8 @@ mod imp {
         pcm: Option<&[f32]>,
         context: Option<&str>,
     ) -> Result<HelperResponse> {
-        let app = auth_app_path()
-            .context("LiveTranslator.app not found (rebuild translator on macOS)")?;
+        let app =
+            auth_app_path().context("BanyanSpeech.app not found (rebuild translator on macOS)")?;
         let seq = HELPER_SEQ.fetch_add(1, Ordering::Relaxed);
         let out = std::env::temp_dir().join(format!("lt-speech-{}-{seq}.json", std::process::id()));
         let _ = std::fs::remove_file(&out);
@@ -197,7 +206,7 @@ mod imp {
         open_args.push("--out".into());
         open_args.push(out.to_string_lossy().into_owned());
 
-        debug!("LiveTranslator.app: {}", open_args.join(" "));
+        debug!("BanyanSpeech.app: {}", open_args.join(" "));
 
         let status = Command::new("open")
             .arg("-W")
@@ -213,20 +222,20 @@ mod imp {
         }
 
         if !out.is_file() {
-            bail!("LiveTranslateSpeech returned no output (status={status})");
+            bail!("BanyanSpeech returned no output (status={status})");
         }
 
         let raw = std::fs::read_to_string(&out)?;
         let _ = std::fs::remove_file(&out);
         let line = raw.lines().next().unwrap_or("").trim();
         if line.is_empty() {
-            bail!("LiveTranslateSpeech returned empty JSON (status={status})");
+            bail!("BanyanSpeech returned empty JSON (status={status})");
         }
 
         let resp: HelperResponse =
-            serde_json::from_str(line).context("parse LiveTranslateSpeech JSON response")?;
+            serde_json::from_str(line).context("parse BanyanSpeech JSON response")?;
         if !status.success() && resp.error.is_empty() {
-            bail!("LiveTranslateSpeech failed (status={status})");
+            bail!("BanyanSpeech failed (status={status})");
         }
         Ok(resp)
     }
@@ -254,7 +263,7 @@ mod imp {
                 "authorization": resp.authorization,
             }),
             Err(e) => {
-                log::debug!("LiveTranslateSpeech check failed: {e:#}");
+                log::debug!("BanyanSpeech check failed: {e:#}");
                 serde_json::json!({
                     "helper": true,
                     "available": true,
@@ -267,7 +276,7 @@ mod imp {
     }
 
     fn context_words(source_lang: &str) -> Option<String> {
-        if let Ok(extra) = std::env::var("APPLE_SPEECH_CONTEXT") {
+        if let Some(extra) = env_var(ENV_SPEECH_CONTEXT, LEGACY_ENV_SPEECH_CONTEXT) {
             let extra = extra.trim();
             if !extra.is_empty() {
                 return Some(extra.to_string());
@@ -362,7 +371,7 @@ mod imp {
 
     pub fn shared_backend() -> Result<std::sync::Arc<AppleSpeechBackend>> {
         if helper_path().is_none() {
-            bail!("Apple Speech helper binary is not available on this system");
+            bail!("Banyan Speech helper binary is not available on this system");
         }
         Ok(ENGINE
             .get_or_init(|| std::sync::Arc::new(AppleSpeechBackend))
@@ -397,7 +406,7 @@ mod imp {
     }
 
     pub fn apple_speech_request_authorization() -> Result<serde_json::Value> {
-        bail!("Apple Speech is only available on macOS")
+        bail!("Banyan Speech is only available on macOS")
     }
 
     pub fn apple_speech_availability(_lang: &str) -> serde_json::Value {
@@ -410,7 +419,7 @@ mod imp {
     }
 
     pub fn apple_speech_backend() -> Result<std::sync::Arc<dyn crate::stt::local::WhisperBackend>> {
-        bail!("Apple Speech is only available on macOS")
+        bail!("Banyan Speech is only available on macOS")
     }
 }
 

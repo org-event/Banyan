@@ -53,8 +53,8 @@ jobs:
           cp -R web "$STAGING/"
           cp .env.example README.md "$STAGING/"
           [[ -f README.ru.md ]] && cp README.ru.md "$STAGING/"
-          cp -R target/release/LiveTranslator.app "$STAGING/"
-          [[ -f target/release/apple-translate ]] && cp target/release/apple-translate "$STAGING/"
+          cp -R target/release/BanyanSpeech.app "$STAGING/"
+          [[ -f target/release/banyan-translate ]] && cp target/release/banyan-translate "$STAGING/"
 
           printf '%s\n' \
             '#!/usr/bin/env bash' \

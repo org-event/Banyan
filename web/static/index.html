@@ -86,11 +86,11 @@
             <div class="sp-hint" id="stt-model-hint">Metal uses AMD/Intel GPU via whisper.cpp. CPU uses CTranslate2.</div>
           </div>
           <div id="stt-apple-panel" style="display:none">
-            <div class="sp-hint" id="stt-apple-status">Checking Apple Speech...</div>
+            <div class="sp-hint" id="stt-apple-status">Checking Banyan Speech...</div>
             <div class="sp-input-row" style="margin-top:8px">
-              <button type="button" class="sp-test-btn" id="btn-apple-speech-auth" onclick="requestAppleSpeechAuth()">Allow Speech Recognition</button>
+              <button type="button" class="sp-test-btn" id="btn-banyan-speech-auth" onclick="requestAppleSpeechAuth()">Allow Banyan Speech</button>
             </div>
-            <div class="sp-hint">Uses macOS Speech framework. Click the button to trigger the system permission dialog, then allow <strong>Terminal</strong> or <strong>Cursor</strong> in System Settings → Privacy & Security → Speech Recognition.</div>
+            <div class="sp-hint">Uses macOS Speech framework via <strong>Banyan Speech</strong>. Click the button to trigger the permission dialog, then allow <strong>Banyan Speech</strong> in System Settings → Privacy & Security → Speech Recognition.</div>
           </div>
           <div id="stt-cloud-panel" style="display:none">
             <div class="sp-label" style="margin-top:8px">Deepgram model</div>
@@ -140,7 +140,7 @@
             <div class="sp-hint" id="translation-polish-hint">Same stack as Whisper/Opus-MT (CTranslate2). Adds ~1–3 s per phrase on CPU.</div>
           </div>
           <div id="translation-apple-panel" style="display:none">
-            <div class="sp-hint" id="translation-apple-status">Checking Apple Translation...</div>
+            <div class="sp-hint" id="translation-apple-status">Checking Banyan Translate...</div>
             <div class="sp-input-row" style="margin-top:8px">
               <button type="button" class="sp-test-btn" id="btn-test-translate-apple" onclick="testLocalTranslation()">Test</button>
             </div>

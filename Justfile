@@ -67,7 +67,7 @@ install-system:
       Linux)
         echo "[i] Linux: optional runtime libs for local build:"
         echo "    Debian/Ubuntu: sudo apt install espeak-ng libonnxruntime-dev pkg-config"
-        echo "    Apple Speech / Swift checks are skipped on Linux (CI runs them on macOS)."
+        echo "    Banyan Speech / Swift checks are skipped on Linux (CI runs them on macOS)."
         ;;
       MINGW*|MSYS*|CYGWIN*)
         echo "[i] Windows: use WSL or wait for native port. Rust/JS hooks still work where applicable."
@@ -134,16 +134,16 @@ check-swift:
       echo "[!] Swift not found. Run: xcode-select --install"
       exit 1
     fi
-    # Apple Translation APIs need the macOS 15+ SDK (Xcode 16+); TranslationSession needs macOS 26 SDK.
+    # Banyan Translate APIs need the macOS 15+ SDK (Xcode 16+); TranslationSession needs macOS 26 SDK.
     if ! xcrun --sdk macosx --show-sdk-version 2>/dev/null | awk -F. '{ exit !($1 >= 15) }'; then
       echo "[skip] Swift Translation checks need macOS 15+ SDK (install Xcode 16+)"
       exit 0
     fi
-    for pkg in tools/apple-speech-auth tools/apple-translate tools/apple-speech; do
+    for pkg in tools/banyan-speech-auth tools/banyan-translate tools/banyan-speech; do
       echo "==> swift build $pkg"
-      if [[ "$pkg" == "tools/apple-translate" ]]; then
+      if [[ "$pkg" == "tools/banyan-translate" ]]; then
         if ! xcrun --sdk macosx --show-sdk-version 2>/dev/null | awk -F. '{ exit !($1 >= 26) }'; then
-          echo "[skip] apple-translate needs macOS 26 SDK (Xcode 26+) for TranslationSession"
+          echo "[skip] banyan-translate needs macOS 26 SDK (Xcode 26+) for TranslationSession"
           continue
         fi
       fi

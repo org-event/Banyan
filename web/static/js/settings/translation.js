@@ -41,7 +41,7 @@ export function updateTranslationEngineUI() {
         badge.textContent = 'Active: Local Opus-MT ru↔en';
       }
     } else if (backend === 'apple') {
-      badge.textContent = 'Active: Apple Translation (system, on-device)';
+      badge.textContent = 'Active: Banyan Translate (system, on-device)';
     } else {
       const modelSel = document.getElementById('cfg-translation-model');
       const model =
@@ -55,10 +55,10 @@ export function updateTranslationEngineUI() {
 
 function appleStatusHtml(apple) {
   if (!apple?.helper) {
-    return '<span style="color:var(--yellow)">Apple Translation helper not built (macOS 14.4+ required)</span>';
+    return '<span style="color:var(--yellow)">Banyan Translate helper not built (macOS 14.4+ required)</span>';
   }
   if (!apple.available) {
-    return '<span style="color:var(--yellow)">This language pair is not supported by Apple Translation on this Mac</span>';
+    return '<span style="color:var(--yellow)">This language pair is not supported by Banyan Translate on this Mac</span>';
   }
   if (apple.ready) {
     return '<span style="color:var(--green)">Ready — language packs installed (works offline)</span>';
@@ -84,7 +84,7 @@ export async function refreshTranslationStatus() {
           '<span style="color:var(--yellow)">OpenRouter selected — configure API key below</span>';
       } else if (data.backend === 'apple') {
         el.innerHTML =
-          '<span style="color:var(--yellow)">Apple Translation selected — see panel below</span>';
+          '<span style="color:var(--yellow)">Banyan Translate selected — see panel below</span>';
       } else if (data.ready) {
         let polishNote =
           data.polish_enabled && !data.polish_active && data.polish_disabled_reason
@@ -111,7 +111,7 @@ export async function refreshTranslationStatus() {
     }
   } catch {
     if (el) el.textContent = 'Could not check translation models';
-    if (appleEl) appleEl.textContent = 'Could not check Apple Translation';
+    if (appleEl) appleEl.textContent = 'Could not check Banyan Translate';
   }
 }
 
