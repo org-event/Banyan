@@ -132,7 +132,7 @@ jobs:
             "espeak-ng: install via choco if TTS phonemization fails"
           ) | Set-Content -Path $dest/WINDOWS.txt
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: banyan-windows-x64
           path: dist/banyan-windows-x64
