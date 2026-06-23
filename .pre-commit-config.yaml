@@ -1,5 +1,6 @@
-# Install: just install  (runs pre-commit install)
+# Install: just install  (runs pre-commit install + pre-push hook)
 # Manual: pre-commit run --all-files
+# Before push: just prepush
 
 repos:
   - repo: local
@@ -10,3 +11,11 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+        stages: [pre-commit]
+      - id: just-prepush
+        name: just prepush
+        entry: just prepush
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]

@@ -9,11 +9,16 @@ install: install-rust install-system install-js install-hooks
     @echo ""
     @echo "Dev environment ready."
     @echo "  just check                              # lint before commit"
+    @echo "  just prepush                            # lint before git push"
     @echo "  cargo run --release -p translator -- setup   # download models (first run)"
     @echo "  cargo run --release -p translator            # start server"
 
 # All pre-commit checks in one command.
 check: check-rust check-js check-swift
+
+# Fast gate before git push — same for everyone (git hook via pre-commit).
+# fmt + JS lint; catches the mistakes that broke CI in seconds.
+prepush: prepush-fmt check-js
 
 build:
     cargo build --release -p translator
@@ -92,13 +97,21 @@ install-hooks:
       exit 1
     fi
     pre-commit install
+    pre-commit install --hook-type pre-push
     echo "[ok] git pre-commit hook → just check"
+    echo "[ok] git pre-push hook → just prepush"
 
 # --- check steps ---
 
-check-rust:
+prepush-fmt:
     cargo fmt --all -- --check
+
+prepush-rust:
+    @just prepush-fmt
     cargo clippy -p translator -p audio-core --all-targets -- -D warnings
+
+check-rust:
+    @just prepush-rust
 
 check-js:
     npm run lint:js
