@@ -1,5 +1,6 @@
 import { state } from '../core/state.js';
 import { showToast } from '../core/toast.js';
+import { setStatus } from '../core/safe-dom.js';
 
 export function initKeyMasking() {
   document.querySelectorAll('.sp-key').forEach((input) => {
@@ -63,12 +64,12 @@ export async function testKey(provider) {
       showToast(hint + (data.error || 'Model rate-limited upstream'));
       const meta = document.getElementById('translation-model-meta');
       if (meta) {
-        meta.innerHTML =
-          '<span style="color:var(--yellow)">' +
-          (data.provider ? data.provider + ': ' : '') +
-          (data.error || 'Rate limited') +
-          (data.retry_after ? ' — wait ' + data.retry_after + 's or switch model' : '') +
-          '</span>';
+        const msg = [
+          data.provider ? data.provider + ': ' : '',
+          data.error || 'Rate limited',
+          data.retry_after ? ' — wait ' + data.retry_after + 's or switch model' : '',
+        ].join('');
+        setStatus(meta, 'var(--yellow)', msg);
       }
     } else {
       btn.textContent = '\u2717 Invalid';

@@ -1,4 +1,5 @@
 import { state } from '../core/state.js';
+import { initI18n, switchLocale, t } from '../core/i18n.js';
 import { sttBackendValue, updateSttEngineUI, refreshSttStatus, whisperModelValue, deepgramModelValue } from './stt.js';
 import {
   translationBackendValue,
@@ -70,6 +71,18 @@ export function populateForm(s) {
   document.getElementById('cfg-their-lang').value = s.their_language || 'en';
   document.getElementById('cfg-endpointing').value = s.endpointing_ms || 500;
   document.getElementById('endpointing-val').textContent = (s.endpointing_ms || 500) + 'ms';
+  const uiLocale = document.getElementById('cfg-ui-locale');
+  if (uiLocale) {
+    uiLocale.value = s.ui_locale || '';
+    updateUiLocaleLabels(s._system_locale);
+  }
+}
+
+function updateUiLocaleLabels(systemLocale) {
+  const sysOpt = document.getElementById('cfg-ui-locale-system');
+  if (sysOpt && systemLocale) {
+    sysOpt.textContent = t('settings.uiLocaleSystem', { locale: systemLocale });
+  }
 }
 
 export function readForm() {
@@ -104,6 +117,7 @@ export function readForm() {
       state.currentSettings.meet_output_device ||
       'TranslateTelega',
     endpointing_ms: parseInt(document.getElementById('cfg-endpointing').value),
+    ui_locale: document.getElementById('cfg-ui-locale')?.value || '',
   };
 }
 
@@ -111,6 +125,7 @@ export async function loadSettings() {
   try {
     const r = await fetch('/api/settings');
     state.currentSettings = await r.json();
+    await initI18n(state.currentSettings._effective_ui_locale || 'en');
     populateForm(state.currentSettings);
     await refreshTranslationStatus();
     await refreshSttStatus();
@@ -131,5 +146,13 @@ export async function saveSettings() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(settings),
   });
-  state.currentSettings = settings;
+  state.currentSettings = { ...state.currentSettings, ...settings };
+}
+
+export function initUiLocaleListener() {
+  document.getElementById('cfg-ui-locale')?.addEventListener('change', async (e) => {
+    const code = e.target.value;
+    await switchLocale(code, state.currentSettings._system_locale);
+    updateUiLocaleLabels(state.currentSettings._system_locale);
+  });
 }

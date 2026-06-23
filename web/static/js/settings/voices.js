@@ -1,6 +1,8 @@
 import { state, LANGS_NO_TTS } from '../core/state.js';
 import { showToast } from '../core/toast.js';
 import { sleep, langName } from '../core/utils.js';
+import { t } from '../core/i18n.js';
+import { clearChildren, renderProgress, setStatus } from '../core/safe-dom.js';
 import { saveAndRestart } from '../engine/restart.js';
 
 export async function loadVoices() {
@@ -20,8 +22,12 @@ export function updateVoiceDropdowns() {
   fillVoiceSelect('cfg-voice-out', theirLang, state.currentSettings.tts_outgoing_voice);
   fillVoiceSelect('cfg-voice-in', myLang, state.currentSettings.tts_incoming_voice);
 
-  document.getElementById('voice-label-in').textContent = langName(myLang) + ' Voice (I hear)';
-  document.getElementById('voice-label-out').textContent = langName(theirLang) + ' Voice (they hear)';
+  document.getElementById('voice-label-in').textContent = t('voice.labelIn', {
+    lang: langName(myLang),
+  });
+  document.getElementById('voice-label-out').textContent = t('voice.labelOut', {
+    lang: langName(theirLang),
+  });
 
   updateDlButton('in');
   updateDlButton('out');
@@ -47,12 +53,12 @@ export function updateVoiceDropdowns() {
 
 function fillVoiceSelect(selId, lang, currentVal) {
   const sel = document.getElementById(selId);
-  sel.innerHTML = '';
+  clearChildren(sel);
   const voices = state.allVoices[lang] || [];
   if (voices.length === 0) {
     const opt = document.createElement('option');
     opt.value = '';
-    opt.textContent = 'No voices for ' + langName(lang);
+    opt.textContent = t('voice.noVoices', { lang: langName(lang) });
     sel.appendChild(opt);
     return;
   }
@@ -61,7 +67,7 @@ function fillVoiceSelect(selId, lang, currentVal) {
 
   if (downloaded.length > 0) {
     const grp = document.createElement('optgroup');
-    grp.label = 'Downloaded';
+    grp.label = t('voice.downloadedGroup');
     downloaded.forEach((v) => {
       const opt = document.createElement('option');
       opt.value = v.name;
@@ -72,7 +78,7 @@ function fillVoiceSelect(selId, lang, currentVal) {
   }
   if (available.length > 0) {
     const grp = document.createElement('optgroup');
-    grp.label = 'Available (' + available.length + ')';
+    grp.label = t('voice.availableGroup', { count: available.length });
     available.forEach((v) => {
       const opt = document.createElement('option');
       opt.value = v.name;
@@ -107,21 +113,17 @@ function updateDlButton(dir) {
 
 export async function showDownloadPrompt(lang, hintId) {
   const hint = document.getElementById(hintId);
+  clearChildren(hint);
   if (LANGS_NO_TTS.includes(lang)) {
-    hint.innerHTML =
-      '<span style="color:var(--yellow)">No TTS voice exists for ' +
-      langName(lang) +
-      '. Translation will work but without audio output.</span>';
+    setStatus(hint, 'var(--yellow)', t('voice.noTts', { lang: langName(lang) }));
     return;
   }
-  hint.innerHTML =
-    '<button class="sp-download-btn" onclick="downloadDefaultVoice(\'' +
-    lang +
-    "', '" +
-    hintId +
-    "')\">Download " +
-    langName(lang) +
-    ' default voice &amp; restart engine</button>';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'sp-download-btn';
+  btn.textContent = t('voice.downloadDefault', { lang: langName(lang) });
+  btn.addEventListener('click', () => downloadDefaultVoice(lang, hintId));
+  hint.appendChild(btn);
   hint.style.color = '';
 }
 
@@ -129,12 +131,7 @@ export async function downloadDefaultVoice(lang, hintId) {
   if (state.downloadingLangs.has(lang)) return;
   state.downloadingLangs.add(lang);
   const hint = document.getElementById(hintId);
-  hint.innerHTML =
-    '<div class="sp-progress"><div class="sp-progress-bar" id="pb-' +
-    lang +
-    '"></div><div class="sp-progress-text" id="pt-' +
-    lang +
-    '">Connecting...</div></div>';
+  renderProgress(hint, lang, t('common.connecting'));
 
   try {
     const resp = await fetch('/api/download-voice', {
@@ -162,18 +159,18 @@ export async function downloadDefaultVoice(lang, hintId) {
           if (txt) txt.textContent = data.progress + '% \u2014 ' + data.mb_done + '/' + data.mb_total + ' MB';
         }
         if (data.done) {
-          hint.innerHTML = '<span style="color:var(--green)">' + langName(lang) + ' voice installed!</span>';
+          setStatus(hint, 'var(--green)', t('voice.installed', { lang: langName(lang) }));
           showToast(langName(lang) + ' voice downloaded');
           await loadVoices();
           await saveAndRestart();
         }
         if (data.error) {
-          hint.innerHTML = '<span style="color:var(--red)">' + data.error + '</span>';
+          setStatus(hint, 'var(--red)', String(data.error));
         }
       }
     }
   } catch (e) {
-    hint.innerHTML = '<span style="color:var(--red)">Download failed: ' + e.message + '</span>';
+    setStatus(hint, 'var(--red)', t('common.downloadFailed', { error: e.message }));
   }
   state.downloadingLangs.delete(lang);
 }
@@ -226,12 +223,7 @@ export async function downloadSelectedVoice(dir) {
 
   if (!voice) return;
   btn.classList.add('loading');
-  hint.innerHTML =
-    '<div class="sp-progress"><div class="sp-progress-bar" id="pb-dl-' +
-    dir +
-    '"></div><div class="sp-progress-text" id="pt-dl-' +
-    dir +
-    '">Connecting...</div></div>';
+  renderProgress(hint, 'dl-' + dir, t('common.connecting'));
 
   try {
     const resp = await fetch('/api/download-voice', {
@@ -259,7 +251,7 @@ export async function downloadSelectedVoice(dir) {
           if (txt) txt.textContent = data.progress + '% \u2014 ' + data.mb_done + '/' + data.mb_total + ' MB';
         }
         if (data.done) {
-          hint.innerHTML = '<span style="color:var(--green)">Downloaded!</span>';
+          setStatus(hint, 'var(--green)', t('common.downloaded'));
           setTimeout(() => {
             hint.textContent = '';
           }, 3000);
@@ -268,12 +260,12 @@ export async function downloadSelectedVoice(dir) {
           updateDlButton(dir);
         }
         if (data.error) {
-          hint.innerHTML = '<span style="color:var(--red)">' + data.error + '</span>';
+          setStatus(hint, 'var(--red)', String(data.error));
         }
       }
     }
   } catch (e) {
-    hint.innerHTML = '<span style="color:var(--red)">Download failed: ' + e.message + '</span>';
+    setStatus(hint, 'var(--red)', t('common.downloadFailed', { error: e.message }));
   }
   btn.classList.remove('loading');
 }

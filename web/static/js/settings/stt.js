@@ -1,4 +1,6 @@
 import { showToast } from '../core/toast.js';
+import { t } from '../core/i18n.js';
+import { clearChildren, setStatus, setStatusLines, statusSpan } from '../core/safe-dom.js';
 
 const WHISPER_HINTS = {
   auto: 'Auto: Metal prefers base-q8_0 → base → tiny. CPU picks smallest CT2 installed.',
@@ -70,21 +72,26 @@ export function updateWhisperHint() {
   }
 }
 
-function appleSttStatusHtml(apple) {
+function renderAppleSttStatus(el, apple) {
+  if (!el) return;
   if (!apple?.helper) {
-    return '<span style="color:var(--yellow)">Banyan Speech helper not built</span>';
+    setStatus(el, 'var(--yellow)', t('stt.appleHelperMissing'));
+    return;
   }
   if (!apple.available) {
-    return '<span style="color:var(--yellow)">Speech recognition not available for your language on this Mac</span>';
+    setStatus(el, 'var(--yellow)', t('stt.appleUnavailable'));
+    return;
   }
   if (apple.ready) {
-    const onDevice = apple.on_device ? ' · on-device' : '';
-    return '<span style="color:var(--green)">Ready — Banyan Speech' + onDevice + '</span>';
+    const onDevice = apple.on_device ? t('stt.appleOnDevice') : '';
+    setStatus(el, 'var(--green)', t('stt.appleReady', { onDevice }));
+    return;
   }
   if (apple.authorization === 'denied' || apple.authorization === 'restricted') {
-    return '<span style="color:var(--yellow)">Allow Banyan Speech in System Settings → Privacy & Security → Speech Recognition</span>';
+    setStatus(el, 'var(--yellow)', t('stt.appleDenied'));
+    return;
   }
-  return '<span style="color:var(--yellow)">Banyan Speech available — grant permission on first use</span>';
+  setStatus(el, 'var(--yellow)', t('stt.appleGrant'));
 }
 
 export function updateSttEngineUI() {
@@ -129,27 +136,25 @@ export async function refreshSttStatus() {
     applyAppleSttOptionVisibility(data.apple);
 
     if (data.backend === 'deepgram') {
-      if (localEl) {
-        localEl.innerHTML =
-          '<span style="color:var(--text3)">Whisper disabled — using Deepgram cloud</span>';
-      }
+      setStatus(localEl, 'var(--text3)', t('stt.whisperDisabledDeepgram'));
       if (appleEl) appleEl.textContent = '';
+      const model = data.deepgram_model || deepgramModelValue();
       if (cloudEl) {
-        const model = data.deepgram_model || deepgramModelValue();
-        cloudEl.innerHTML = data.ready
-          ? '<span style="color:var(--green)">Active: Deepgram ' + model + ' · streaming</span>'
-          : '<span style="color:var(--yellow)">Set Deepgram API key below</span>';
+        setStatus(
+          cloudEl,
+          data.ready ? 'var(--green)' : 'var(--yellow)',
+          data.ready
+            ? t('stt.deepgramActive', { model })
+            : t('stt.deepgramNeedKey')
+        );
       }
       return;
     }
 
     if (data.backend === 'apple') {
       if (cloudEl) cloudEl.textContent = '';
-      if (localEl) {
-        localEl.innerHTML =
-          '<span style="color:var(--text3)">Whisper disabled — using Banyan Speech</span>';
-      }
-      if (appleEl) appleEl.innerHTML = appleSttStatusHtml(data.apple);
+      setStatus(localEl, 'var(--text3)', t('stt.whisperDisabledApple'));
+      renderAppleSttStatus(appleEl, data.apple);
       return;
     }
 
@@ -157,37 +162,34 @@ export async function refreshSttStatus() {
     if (appleEl) appleEl.textContent = '';
     const el = localEl;
     if (!el) return;
-    const installed = (data.installed || []).join(', ') || 'none';
+    const installed = (data.installed || []).join(', ') || t('common.none');
     const active = data.model || '—';
     const selected = data.selected || 'auto';
     const device = data.device || sttDeviceValue();
     const devLabel = device === 'cpu' ? 'CPU' : 'Metal GPU';
     if (data.ready) {
-      el.innerHTML =
-        '<span style="color:var(--green)">Active: ' +
-        active +
-        ' · ' +
-        devLabel +
-        '</span><br><span style="color:var(--text3)">Selected: ' +
-        selected +
-        ' · Installed: ' +
-        installed +
-        '</span>';
+      setStatusLines(el, [
+        {
+          color: 'var(--green)',
+          text: t('stt.localActive', { model: active, device: devLabel }),
+        },
+        {
+          color: 'var(--text3)',
+          text: t('stt.localMeta', { selected, installed }),
+        },
+      ]);
     } else {
       const need = selected === 'auto' ? 'tiny' : selected;
       const fmt = device === 'cpu' ? 'CT2' : 'GGML';
-      el.innerHTML =
-        '<span style="color:var(--yellow)">Need whisper-' +
-        need +
-        ' (' +
-        fmt +
-        '). Click Download selected.</span><br>' +
-        '<span style="color:var(--text3)">Installed: ' +
-        installed +
-        '</span>';
+      clearChildren(el);
+      el.appendChild(
+        statusSpan('var(--yellow)', t('stt.localNeedModel', { need, format: fmt }))
+      );
+      el.appendChild(document.createElement('br'));
+      el.appendChild(statusSpan('var(--text3)', t('stt.localInstalled', { installed })));
     }
   } catch {
-    if (localEl) localEl.textContent = 'Could not check STT model';
+    if (localEl) localEl.textContent = t('stt.checkFailed');
   }
 }
 

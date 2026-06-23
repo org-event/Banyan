@@ -1,11 +1,12 @@
 import { state } from './core/state.js';
 import { sleep } from './core/utils.js';
+import { t } from './core/i18n.js';
 import { initTheme } from './core/theme.js';
 import { startTimerInterval } from './core/timer.js';
 import { connectSSE } from './chat/sse.js';
 import { applyMuteButtons, syncEngineStatus } from './engine/control.js';
 import { initMonitor } from './audio/monitor.js';
-import { loadSettings } from './settings/form.js';
+import { loadSettings, initUiLocaleListener } from './settings/form.js';
 import { loadVoices, initVoiceListeners } from './settings/voices.js';
 import { loadDevices, initDeviceListeners } from './settings/devices.js';
 import { initKeyMasking } from './settings/keys.js';
@@ -22,7 +23,7 @@ export async function waitForEngine() {
       const r = await fetch('/health');
       if (r.ok) {
         text.className = 'ready';
-        text.textContent = 'Connected — press Start to translate';
+        text.textContent = t('app.connected');
         spinner.style.display = 'none';
         state.sessionStart = Date.now();
         await syncEngineStatus();
@@ -49,10 +50,11 @@ export async function boot() {
   if (typeof applyTooltips === 'function') applyTooltips();
   applyMuteButtons();
   initSettingsPanel();
+  initUiLocaleListener();
 }
 
-export function startApp() {
-  boot();
-  waitForEngine();
+export async function startApp() {
   connectSSE();
+  await boot();
+  waitForEngine();
 }
