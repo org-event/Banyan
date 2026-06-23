@@ -163,7 +163,7 @@ impl Settings {
             .or_else(|_| std::env::var("LC_ALL"))
             .or_else(|_| std::env::var("LC_MESSAGES"))
             .map(|s| normalize_ui_locale(&s))
-            .unwrap_or_else(|| "en".into())
+            .unwrap_or_else(|_| "en".into())
     }
 
     /// User override or system locale, mapped to a supported UI catalog.
@@ -518,9 +518,14 @@ fn normalize_ui_locale(raw: &str) -> String {
 }
 
 fn supported_ui_locale(code: &str) -> String {
-    match code.split('-').next().unwrap_or(code) {
-        "en" => "en".into(),
-        // Future catalogs: "ru" => "ru".into(),
-        _ => "en".into(),
+    const SUPPORTED: &[&str] = &[
+        "en", "ru", "de", "fr", "es", "it", "pt", "pl", "uk", "zh", "ar", "tr", "vi", "hi", "nl",
+        "sv", "cs", "da", "fi",
+    ];
+    let base = code.split('-').next().unwrap_or(code);
+    if SUPPORTED.contains(&base) {
+        base.into()
+    } else {
+        "en".into()
     }
 }

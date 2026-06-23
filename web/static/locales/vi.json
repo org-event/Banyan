@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Đang kết nối máy chủ…",
+    "connected": "Đã kết nối — nhấn Bắt đầu để dịch",
+    "connectedHeader": "Đã kết nối"
+  },
+  "header": {
+    "stopped": "Đã dừng",
+    "start": "Bắt đầu"
+  },
+  "controls": {
+    "logs": "Nhật ký",
+    "micOut": "Mic ra",
+    "micIn": "Mic vào",
+    "tabAudio": "Âm thanh tab",
+    "monitor": "Giám sát",
+    "compact": "Gọn",
+    "saved": "Đã lưu",
+    "history": "Lịch sử",
+    "export": "Xuất",
+    "clear": "Xóa",
+    "settings": "Cài đặt"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "uiLocale": "Ngôn ngữ giao diện",
+    "uiLocaleSystem": "Mặc định hệ thống ({locale})",
+    "saveRestart": "Lưu và khởi động lại"
+  },
+  "logs": {
+    "title": "Nhật ký",
+    "clear": "Xóa",
+    "empty": "Chưa có lỗi hoặc cảnh báo"
+  },
+  "common": {
+    "connecting": "Đang kết nối…",
+    "downloadFailed": "Tải xuống thất bại: {error}",
+    "downloaded": "Đã tải xuống!",
+    "none": "không"
+  },
+  "voice": {
+    "noTts": "Không có giọng TTS cho {lang}. Dịch không có âm thanh.",
+    "downloadDefault": "Tải giọng {lang} và khởi động lại",
+    "installed": "Đã cài giọng {lang}!",
+    "noVoices": "Không có giọng cho {lang}",
+    "downloadedGroup": "Đã tải",
+    "availableGroup": "Có sẵn ({count})",
+    "labelIn": "Giọng {lang} (tôi nghe)",
+    "labelOut": "Giọng {lang} (họ nghe)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper tắt — Deepgram đám mây",
+    "whisperDisabledApple": "Whisper tắt — Banyan Speech",
+    "deepgramActive": "Hoạt động: Deepgram {model} · streaming",
+    "deepgramNeedKey": "Nhập khóa Deepgram bên dưới",
+    "localActive": "Hoạt động: {model} · {device}",
+    "localMeta": "Đã chọn: {selected} · Đã cài: {installed}",
+    "localNeedModel": "Cần whisper-{need} ({format}). Nhấn Tải xuống.",
+    "localInstalled": "Đã cài: {installed}",
+    "checkFailed": "Không thể kiểm tra mô hình STT",
+    "appleHelperMissing": "Trợ lý Banyan Speech chưa biên dịch",
+    "appleUnavailable": "Nhận dạng giọng nói không khả dụng cho ngôn ngữ của bạn",
+    "appleReady": "Sẵn sàng — Banyan Speech{onDevice}",
+    "appleOnDevice": " · trên thiết bị",
+    "appleDenied": "Cho phép Banyan Speech trong Cài đặt hệ thống",
+    "appleGrant": "Banyan Speech khả dụng — cấp quyền khi dùng lần đầu"
+  },
+  "translation": {
+    "openrouterSelected": "Đã chọn OpenRouter — khóa API bên dưới",
+    "appleSelected": "Đã chọn Banyan Translate — xem bảng bên dưới",
+    "ready": "Sẵn sàng — {pairs}{polish}",
+    "polishReason": " · Làm mịn: {reason}",
+    "polishActive": " · làm mịn: {model}",
+    "modelsMissing": "Thiếu mô hình: {pairs}. Tải xuống (~600 MB).",
+    "checkFailed": "Không thể kiểm tra mô hình dịch",
+    "appleCheckFailed": "Không thể kiểm tra Banyan Translate",
+    "appleHelperMissing": "Trợ lý Banyan Translate chưa biên dịch (macOS 14.4+)",
+    "applePairUnsupported": "Cặp ngôn ngữ không được Banyan Translate hỗ trợ",
+    "appleReady": "Sẵn sàng — gói ngôn ngữ đã cài (ngoại tuyến)",
+    "appleSupported": "Hỗ trợ nhưng chưa tải — cài gói ngôn ngữ",
+    "appleChecking": "Đang kiểm tra ngôn ngữ…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Verbinden met server…",
+    "connected": "Verbonden — druk Start om te vertalen",
+    "connectedHeader": "Verbonden"
+  },
+  "header": {
+    "stopped": "Gestopt",
+    "start": "Start"
+  },
+  "controls": {
+    "logs": "Logboek",
+    "micOut": "Mic uit",
+    "micIn": "Mic in",
+    "tabAudio": "Tabblad-audio",
+    "monitor": "Monitor",
+    "compact": "Compact",
+    "saved": "Opgeslagen",
+    "history": "Geschiedenis",
+    "export": "Exporteren",
+    "clear": "Wissen",
+    "settings": "Instellingen"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "uiLocale": "Interfacetaal",
+    "uiLocaleSystem": "Systeemstandaard ({locale})",
+    "saveRestart": "Opslaan en herstarten"
+  },
+  "logs": {
+    "title": "Logboek",
+    "clear": "Wissen",
+    "empty": "Nog geen fouten of waarschuwingen"
+  },
+  "common": {
+    "connecting": "Verbinden…",
+    "downloadFailed": "Download mislukt: {error}",
+    "downloaded": "Gedownload!",
+    "none": "geen"
+  },
+  "voice": {
+    "noTts": "Geen TTS-stem voor {lang}. Vertaling zonder audio.",
+    "downloadDefault": "Download {lang}-stem en herstart",
+    "installed": "{lang}-stem geïnstalleerd!",
+    "noVoices": "Geen stemmen voor {lang}",
+    "downloadedGroup": "Gedownload",
+    "availableGroup": "Beschikbaar ({count})",
+    "labelIn": "{lang}-stem (ik hoor)",
+    "labelOut": "{lang}-stem (zij horen)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper uitgeschakeld — cloud Deepgram",
+    "whisperDisabledApple": "Whisper uitgeschakeld — Banyan Speech",
+    "deepgramActive": "Actief: Deepgram {model} · streaming",
+    "deepgramNeedKey": "Voer Deepgram-sleutel hieronder in",
+    "localActive": "Actief: {model} · {device}",
+    "localMeta": "Geselecteerd: {selected} · Geïnstalleerd: {installed}",
+    "localNeedModel": "whisper-{need} ({format}) nodig. Klik Downloaden.",
+    "localInstalled": "Geïnstalleerd: {installed}",
+    "checkFailed": "STT-model kon niet worden gecontroleerd",
+    "appleHelperMissing": "Banyan Speech-helper niet gebouwd",
+    "appleUnavailable": "Spraakherkenning niet beschikbaar voor uw taal",
+    "appleReady": "Gereed — Banyan Speech{onDevice}",
+    "appleOnDevice": " · op apparaat",
+    "appleDenied": "Sta Banyan Speech toe in Systeeminstellingen",
+    "appleGrant": "Banyan Speech beschikbaar — geef toestemming bij eerste gebruik"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter geselecteerd — API-sleutel hieronder",
+    "appleSelected": "Banyan Translate geselecteerd — zie paneel hieronder",
+    "ready": "Gereed — {pairs}{polish}",
+    "polishReason": " · Polijsten: {reason}",
+    "polishActive": " · polijsten: {model}",
+    "modelsMissing": "Ontbrekende modellen: {pairs}. Download (~600 MB).",
+    "checkFailed": "Vertaalmodellen konden niet worden gecontroleerd",
+    "appleCheckFailed": "Banyan Translate kon niet worden gecontroleerd",
+    "appleHelperMissing": "Banyan Translate-helper niet gebouwd (macOS 14.4+)",
+    "applePairUnsupported": "Taalpaar niet ondersteund door Banyan Translate",
+    "appleReady": "Gereed — taalpakketten geïnstalleerd (offline)",
+    "appleSupported": "Ondersteund maar niet gedownload — installeer taalpakketten",
+    "appleChecking": "Talen controleren…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Sunucuya bağlanılıyor…",
+    "connected": "Bağlandı — çevirmek için Başlat'a basın",
+    "connectedHeader": "Bağlandı"
+  },
+  "header": {
+    "stopped": "Durduruldu",
+    "start": "Başlat"
+  },
+  "controls": {
+    "logs": "Günlükler",
+    "micOut": "Mikrofon çıkış",
+    "micIn": "Mikrofon giriş",
+    "tabAudio": "Sekme sesi",
+    "monitor": "Monitör",
+    "compact": "Kompakt",
+    "saved": "Kayıtlı",
+    "history": "Geçmiş",
+    "export": "Dışa aktar",
+    "clear": "Temizle",
+    "settings": "Ayarlar"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "uiLocale": "Arayüz dili",
+    "uiLocaleSystem": "Sistem varsayılanı ({locale})",
+    "saveRestart": "Kaydet ve yeniden başlat"
+  },
+  "logs": {
+    "title": "Günlükler",
+    "clear": "Temizle",
+    "empty": "Henüz hata veya uyarı yok"
+  },
+  "common": {
+    "connecting": "Bağlanıyor…",
+    "downloadFailed": "İndirme başarısız: {error}",
+    "downloaded": "İndirildi!",
+    "none": "yok"
+  },
+  "voice": {
+    "noTts": "{lang} için TTS sesi yok. Çeviri sessiz olacak.",
+    "downloadDefault": "{lang} sesini indir ve yeniden başlat",
+    "installed": "{lang} sesi kuruldu!",
+    "noVoices": "{lang} için ses yok",
+    "downloadedGroup": "İndirilenler",
+    "availableGroup": "Mevcut ({count})",
+    "labelIn": "{lang} sesi (ben duyarım)",
+    "labelOut": "{lang} sesi (onlar duyar)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper devre dışı — bulut Deepgram",
+    "whisperDisabledApple": "Whisper devre dışı — Banyan Speech",
+    "deepgramActive": "Aktif: Deepgram {model} · akış",
+    "deepgramNeedKey": "Aşağıya Deepgram anahtarını girin",
+    "localActive": "Aktif: {model} · {device}",
+    "localMeta": "Seçili: {selected} · Kurulu: {installed}",
+    "localNeedModel": "whisper-{need} ({format}) gerekli. İndir'e tıklayın.",
+    "localInstalled": "Kurulu: {installed}",
+    "checkFailed": "STT modeli kontrol edilemedi",
+    "appleHelperMissing": "Banyan Speech yardımcısı derlenmedi",
+    "appleUnavailable": "Diliniz için konuşma tanıma kullanılamıyor",
+    "appleReady": "Hazır — Banyan Speech{onDevice}",
+    "appleOnDevice": " · cihazda",
+    "appleDenied": "Sistem Ayarları'nda Banyan Speech'e izin verin",
+    "appleGrant": "Banyan Speech kullanılabilir — ilk kullanımda izin verin"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter seçildi — API anahtarı aşağıda",
+    "appleSelected": "Banyan Translate seçildi — aşağıdaki panele bakın",
+    "ready": "Hazır — {pairs}{polish}",
+    "polishReason": " · Cilalama: {reason}",
+    "polishActive": " · cilalama: {model}",
+    "modelsMissing": "Eksik modeller: {pairs}. İndir (~600 MB).",
+    "checkFailed": "Çeviri modelleri kontrol edilemedi",
+    "appleCheckFailed": "Banyan Translate kontrol edilemedi",
+    "appleHelperMissing": "Banyan Translate yardımcısı derlenmedi (macOS 14.4+)",
+    "applePairUnsupported": "Dil çifti Banyan Translate tarafından desteklenmiyor",
+    "appleReady": "Hazır — dil paketleri kurulu (çevrimdışı)",
+    "appleSupported": "Destekleniyor ama indirilmedi — dil paketlerini kurun",
+    "appleChecking": "Diller kontrol ediliyor…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

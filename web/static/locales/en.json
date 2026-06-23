@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Live Translator",
+    "title": "Banyan",
     "connecting": "Connecting to server…",
     "connected": "Connected — press Start to translate",
     "connectedHeader": "Connected"
@@ -26,7 +26,6 @@
     "title": "Settings",
     "uiLocale": "Interface language",
     "uiLocaleSystem": "System default ({locale})",
-    "uiLocaleEn": "English",
     "saveRestart": "Save & Restart Engine"
   },
   "logs": {

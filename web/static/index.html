@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Live Translator</title>
-<link rel="stylesheet" href="/static/css/style.css?v=4">
+<title>Banyan</title>
+<link rel="icon" href="/static/img/banyan.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/css/style.css?v=5">
 </head>
 <body>
 
@@ -315,10 +316,7 @@
       <div class="sp-section-body">
         <div class="sp-field">
           <div class="sp-label" data-i18n="settings.uiLocale">Interface language</div>
-          <select class="sp-input" id="cfg-ui-locale">
-            <option value="" id="cfg-ui-locale-system">System default</option>
-            <option value="en" data-i18n="settings.uiLocaleEn">English</option>
-          </select>
+          <select class="sp-input" id="cfg-ui-locale"></select>
         </div>
         <div class="sp-field">
           <div class="sp-label">STT Endpointing (sentence boundary sensitivity)</div>
@@ -346,7 +344,10 @@
 
 <!-- Main UI -->
 <header>
-  <h1 data-i18n="app.title">Live Translator</h1>
+  <div class="brand">
+    <img class="brand-logo" src="/static/img/banyan.svg" width="28" height="28" alt="">
+    <h1 data-i18n="app.title">Banyan</h1>
+  </div>
   <div class="header-controls">
     <span id="timer">0:00</span>
     <div class="engine-pill stopped" id="engine-pill">

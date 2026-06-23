@@ -1,4 +1,4 @@
-/** UI strings loaded from /static/locales/{locale}.json */
+import { normalizeUiLocale, UI_LOCALE_CODES } from './ui-locales.js';
 
 let catalog = {};
 let locale = 'en';
@@ -18,14 +18,14 @@ export function getLocale() {
 }
 
 export async function loadCatalog(loc) {
-  const code = loc || 'en';
+  const code = normalizeUiLocale(loc);
   let r = await fetch(`/static/locales/${code}.json`);
   if (!r.ok && code !== 'en') {
     r = await fetch('/static/locales/en.json');
   }
   if (!r.ok) throw new Error('locale catalog missing');
   catalog = await r.json();
-  locale = code === 'en' || r.url.endsWith(`/${code}.json`) ? code : 'en';
+  locale = r.url.endsWith(`/${code}.json`) ? code : 'en';
   document.documentElement.lang = locale;
 }
 
@@ -47,7 +47,8 @@ export async function initI18n(effective) {
 
 export async function switchLocale(code, systemLocale) {
   const loc = code || systemLocale || 'en';
-  const base = loc.split('-')[0];
-  await loadCatalog(base === 'en' ? 'en' : base);
+  await loadCatalog(normalizeUiLocale(loc));
   applyDocumentI18n();
 }
+
+export { UI_LOCALE_CODES };

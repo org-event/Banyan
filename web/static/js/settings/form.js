@@ -1,6 +1,8 @@
 import { state } from '../core/state.js';
 import { initI18n, switchLocale, t } from '../core/i18n.js';
+import { UI_LOCALES } from '../core/ui-locales.js';
 import { sttBackendValue, updateSttEngineUI, refreshSttStatus, whisperModelValue, deepgramModelValue } from './stt.js';
+import { loadVoices } from './voices.js';
 import {
   translationBackendValue,
   updateTranslationEngineUI,
@@ -71,11 +73,25 @@ export function populateForm(s) {
   document.getElementById('cfg-their-lang').value = s.their_language || 'en';
   document.getElementById('cfg-endpointing').value = s.endpointing_ms || 500;
   document.getElementById('endpointing-val').textContent = (s.endpointing_ms || 500) + 'ms';
-  const uiLocale = document.getElementById('cfg-ui-locale');
-  if (uiLocale) {
-    uiLocale.value = s.ui_locale || '';
-    updateUiLocaleLabels(s._system_locale);
+  populateUiLocaleSelect(s.ui_locale || '', s._system_locale);
+}
+
+function populateUiLocaleSelect(selected, systemLocale) {
+  const sel = document.getElementById('cfg-ui-locale');
+  if (!sel) return;
+  sel.replaceChildren();
+  const sysOpt = document.createElement('option');
+  sysOpt.value = '';
+  sysOpt.id = 'cfg-ui-locale-system';
+  sysOpt.textContent = t('settings.uiLocaleSystem', { locale: systemLocale || 'en' });
+  sel.appendChild(sysOpt);
+  for (const { code, flag, name } of UI_LOCALES) {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = `${flag} ${name}`;
+    sel.appendChild(opt);
   }
+  sel.value = selected;
 }
 
 function updateUiLocaleLabels(systemLocale) {
@@ -154,5 +170,8 @@ export function initUiLocaleListener() {
     const code = e.target.value;
     await switchLocale(code, state.currentSettings._system_locale);
     updateUiLocaleLabels(state.currentSettings._system_locale);
+    await refreshSttStatus();
+    await refreshTranslationStatus();
+    await loadVoices();
   });
 }

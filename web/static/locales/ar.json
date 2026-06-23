@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "جارٍ الاتصال بالخادم…",
+    "connected": "متصل — اضغط بدء للترجمة",
+    "connectedHeader": "متصل"
+  },
+  "header": {
+    "stopped": "متوقف",
+    "start": "بدء"
+  },
+  "controls": {
+    "logs": "السجلات",
+    "micOut": "ميكروفون خروج",
+    "micIn": "ميكروفون دخول",
+    "tabAudio": "صوت التبويب",
+    "monitor": "مراقبة",
+    "compact": "مضغوط",
+    "saved": "محفوظ",
+    "history": "السجل",
+    "export": "تصدير",
+    "clear": "مسح",
+    "settings": "الإعدادات"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "uiLocale": "لغة الواجهة",
+    "uiLocaleSystem": "افتراضي النظام ({locale})",
+    "saveRestart": "حفظ وإعادة التشغيل"
+  },
+  "logs": {
+    "title": "السجلات",
+    "clear": "مسح",
+    "empty": "لا أخطاء أو تحذيرات بعد"
+  },
+  "common": {
+    "connecting": "جارٍ الاتصال…",
+    "downloadFailed": "فشل التنزيل: {error}",
+    "downloaded": "تم التنزيل!",
+    "none": "لا شيء"
+  },
+  "voice": {
+    "noTts": "لا صوت TTS لـ {lang}. الترجمة بدون صوت.",
+    "downloadDefault": "تنزيل صوت {lang} وإعادة التشغيل",
+    "installed": "تم تثبيت صوت {lang}!",
+    "noVoices": "لا أصوات لـ {lang}",
+    "downloadedGroup": "تم التنزيل",
+    "availableGroup": "متاح ({count})",
+    "labelIn": "صوت {lang} (أسمع)",
+    "labelOut": "صوت {lang} (يسمعون)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper معطّل — Deepgram سحابي",
+    "whisperDisabledApple": "Whisper معطّل — Banyan Speech",
+    "deepgramActive": "نشط: Deepgram {model} · بث",
+    "deepgramNeedKey": "أدخل مفتاح Deepgram أدناه",
+    "localActive": "نشط: {model} · {device}",
+    "localMeta": "المحدد: {selected} · المثبت: {installed}",
+    "localNeedModel": "يلزم whisper-{need} ({format}). انقر تنزيل.",
+    "localInstalled": "مثبت: {installed}",
+    "checkFailed": "تعذر التحقق من نموذج STT",
+    "appleHelperMissing": "مساعد Banyan Speech غير مُجمَّع",
+    "appleUnavailable": "التعرف على الكلام غير متاح للغتك",
+    "appleReady": "جاهز — Banyan Speech{onDevice}",
+    "appleOnDevice": " · على الجهاز",
+    "appleDenied": "اسمح لـ Banyan Speech في إعدادات النظام",
+    "appleGrant": "Banyan Speech متاح — امنح الإذن عند أول استخدام"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter محدد — مفتاح API أدناه",
+    "appleSelected": "Banyan Translate محدد — انظر اللوحة أدناه",
+    "ready": "جاهز — {pairs}{polish}",
+    "polishReason": " · تحسين: {reason}",
+    "polishActive": " · تحسين: {model}",
+    "modelsMissing": "نماذج مفقودة: {pairs}. تنزيل (~600 ميجابايت).",
+    "checkFailed": "تعذر التحقق من نماذج الترجمة",
+    "appleCheckFailed": "تعذر التحقق من Banyan Translate",
+    "appleHelperMissing": "مساعد Banyan Translate غير مُجمَّع (macOS 14.4+)",
+    "applePairUnsupported": "زوج اللغات غير مدعوم من Banyan Translate",
+    "appleReady": "جاهز — حزم اللغة مثبتة (دون اتصال)",
+    "appleSupported": "مدعوم لكن غير منزّل — ثبّت حزم اللغة",
+    "appleChecking": "جارٍ التحقق من اللغات…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

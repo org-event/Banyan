@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Forbinder til server…",
+    "connected": "Forbundet — tryk Start for at oversætte",
+    "connectedHeader": "Forbundet"
+  },
+  "header": {
+    "stopped": "Stoppet",
+    "start": "Start"
+  },
+  "controls": {
+    "logs": "Logfiler",
+    "micOut": "Mic ud",
+    "micIn": "Mic ind",
+    "tabAudio": "Fane-lyd",
+    "monitor": "Monitor",
+    "compact": "Kompakt",
+    "saved": "Gemte",
+    "history": "Historik",
+    "export": "Eksporter",
+    "clear": "Ryd",
+    "settings": "Indstillinger"
+  },
+  "settings": {
+    "title": "Indstillinger",
+    "uiLocale": "Grænsefladesprog",
+    "uiLocaleSystem": "Systemstandard ({locale})",
+    "saveRestart": "Gem og genstart"
+  },
+  "logs": {
+    "title": "Logfiler",
+    "clear": "Ryd",
+    "empty": "Ingen fejl eller advarsler endnu"
+  },
+  "common": {
+    "connecting": "Forbinder…",
+    "downloadFailed": "Download mislykkedes: {error}",
+    "downloaded": "Downloadet!",
+    "none": "ingen"
+  },
+  "voice": {
+    "noTts": "Ingen TTS-stemme for {lang}. Oversættelse uden lyd.",
+    "downloadDefault": "Download {lang}-stemme og genstart",
+    "installed": "{lang}-stemme installeret!",
+    "noVoices": "Ingen stemmer for {lang}",
+    "downloadedGroup": "Downloadet",
+    "availableGroup": "Tilgængelige ({count})",
+    "labelIn": "{lang}-stemme (jeg hører)",
+    "labelOut": "{lang}-stemme (de hører)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper deaktiveret — cloud Deepgram",
+    "whisperDisabledApple": "Whisper deaktiveret — Banyan Speech",
+    "deepgramActive": "Aktiv: Deepgram {model} · streaming",
+    "deepgramNeedKey": "Indtast Deepgram-nøgle nedenfor",
+    "localActive": "Aktiv: {model} · {device}",
+    "localMeta": "Valgt: {selected} · Installeret: {installed}",
+    "localNeedModel": "Kræver whisper-{need} ({format}). Klik Download.",
+    "localInstalled": "Installeret: {installed}",
+    "checkFailed": "Kunne ikke tjekke STT-model",
+    "appleHelperMissing": "Banyan Speech-hjælper ikke bygget",
+    "appleUnavailable": "Talegenkendelse ikke tilgængelig for dit sprog",
+    "appleReady": "Klar — Banyan Speech{onDevice}",
+    "appleOnDevice": " · på enheden",
+    "appleDenied": "Tillad Banyan Speech i Systemindstillinger",
+    "appleGrant": "Banyan Speech tilgængelig — giv tilladelse ved første brug"
+  },
+  "translation": {
+    "openrouterSelected": "OpenRouter valgt — API-nøgle nedenfor",
+    "appleSelected": "Banyan Translate valgt — se panel nedenfor",
+    "ready": "Klar — {pairs}{polish}",
+    "polishReason": " · Polering: {reason}",
+    "polishActive": " · polering: {model}",
+    "modelsMissing": "Manglende modeller: {pairs}. Download (~600 MB).",
+    "checkFailed": "Kunne ikke tjekke oversættelsesmodeller",
+    "appleCheckFailed": "Kunne ikke tjekke Banyan Translate",
+    "appleHelperMissing": "Banyan Translate-hjælper ikke bygget (macOS 14.4+)",
+    "applePairUnsupported": "Sprogpar understøttes ikke af Banyan Translate",
+    "appleReady": "Klar — sprogpakker installeret (offline)",
+    "appleSupported": "Understøttet men ikke downloadet — installer sprogpakker",
+    "appleChecking": "Tjekker sprog…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

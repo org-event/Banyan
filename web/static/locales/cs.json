@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Banyan",
+    "connecting": "Připojování k serveru…",
+    "connected": "Připojeno — stiskněte Start pro překlad",
+    "connectedHeader": "Připojeno"
+  },
+  "header": {
+    "stopped": "Zastaveno",
+    "start": "Start"
+  },
+  "controls": {
+    "logs": "Protokoly",
+    "micOut": "Mikrofon výst.",
+    "micIn": "Mikrofon vst.",
+    "tabAudio": "Zvuk karty",
+    "monitor": "Monitor",
+    "compact": "Kompaktní",
+    "saved": "Uložené",
+    "history": "Historie",
+    "export": "Export",
+    "clear": "Vymazat",
+    "settings": "Nastavení"
+  },
+  "settings": {
+    "title": "Nastavení",
+    "uiLocale": "Jazyk rozhraní",
+    "uiLocaleSystem": "Výchozí systémový ({locale})",
+    "saveRestart": "Uložit a restartovat"
+  },
+  "logs": {
+    "title": "Protokoly",
+    "clear": "Vymazat",
+    "empty": "Zatím žádné chyby ani varování"
+  },
+  "common": {
+    "connecting": "Připojování…",
+    "downloadFailed": "Stažení selhalo: {error}",
+    "downloaded": "Staženo!",
+    "none": "žádný"
+  },
+  "voice": {
+    "noTts": "Žádný TTS hlas pro {lang}. Překlad bez zvuku.",
+    "downloadDefault": "Stáhnout hlas {lang} a restartovat",
+    "installed": "Hlas {lang} nainstalován!",
+    "noVoices": "Žádné hlasy pro {lang}",
+    "downloadedGroup": "Stažené",
+    "availableGroup": "Dostupné ({count})",
+    "labelIn": "Hlas {lang} (slyším)",
+    "labelOut": "Hlas {lang} (slyší)"
+  },
+  "stt": {
+    "whisperDisabledDeepgram": "Whisper vypnut — cloud Deepgram",
+    "whisperDisabledApple": "Whisper vypnut — Banyan Speech",
+    "deepgramActive": "Aktivní: Deepgram {model} · stream",
+    "deepgramNeedKey": "Zadejte klíč Deepgram níže",
+    "localActive": "Aktivní: {model} · {device}",
+    "localMeta": "Vybráno: {selected} · Nainstalováno: {installed}",
+    "localNeedModel": "Potřeba whisper-{need} ({format}). Klikněte Stáhnout.",
+    "localInstalled": "Nainstalováno: {installed}",
+    "checkFailed": "Nelze zkontrolovat model STT",
+    "appleHelperMissing": "Pomocník Banyan Speech není sestaven",
+    "appleUnavailable": "Rozpoznávání řeči není dostupné pro váš jazyk",
+    "appleReady": "Připraveno — Banyan Speech{onDevice}",
+    "appleOnDevice": " · na zařízení",
+    "appleDenied": "Povolte Banyan Speech v Nastavení systému",
+    "appleGrant": "Banyan Speech dostupný — udělte oprávnění při prvním použití"
+  },
+  "translation": {
+    "openrouterSelected": "Vybrán OpenRouter — API klíč níže",
+    "appleSelected": "Vybrán Banyan Translate — viz panel níže",
+    "ready": "Připraveno — {pairs}{polish}",
+    "polishReason": " · Leštění: {reason}",
+    "polishActive": " · leštění: {model}",
+    "modelsMissing": "Chybí modely: {pairs}. Stáhnout (~600 MB).",
+    "checkFailed": "Nelze zkontrolovat překladové modely",
+    "appleCheckFailed": "Nelze zkontrolovat Banyan Translate",
+    "appleHelperMissing": "Pomocník Banyan Translate není sestaven (macOS 14.4+)",
+    "applePairUnsupported": "Jazyková dvojice není podporována Banyan Translate",
+    "appleReady": "Připraveno — jazykové balíčky nainstalovány (offline)",
+    "appleSupported": "Podporováno, ale nestaženo — nainstalujte jazykové balíčky",
+    "appleChecking": "Kontrola jazyků…",
+    "rateLimited": "{provider}{error}{retry}"
+  }
+}

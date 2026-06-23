@@ -47,6 +47,21 @@
     flex-shrink: 0;
   }
   header h1 { font-size: 17px; font-weight: 600; color: var(--text-h); }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .brand-logo {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: block;
+  }
+  :root[data-theme="dark"] .brand-logo {
+    filter: brightness(1.1);
+  }
   .header-controls { display: flex; gap: 10px; align-items: center; }
   #timer {
     font-family: 'SF Mono', 'Menlo', monospace;
