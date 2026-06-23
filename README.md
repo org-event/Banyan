@@ -12,9 +12,7 @@ Supports **29 languages** with STT, translation, and TTS. Voice models from [Pip
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![GitHub stars](https://img.shields.io/github/stars/org-event/Banyan)
 
-> Fork of [LetovKai/call-translator](https://github.com/LetovKai/call-translator) by Kai Letov.
-
-> **Note:** macOS only (14+). Uses CoreAudio and cpal for audio capture. Windows/Linux support is not available yet — contributions welcome!
+> **Note:** macOS production today (14+). Windows port in active development (see `windows` branch). Linux contributions welcome.
 
 ---
 

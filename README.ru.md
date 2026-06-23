@@ -11,9 +11,7 @@
 ![macOS](https://img.shields.io/badge/platform-macOS_14+-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-> Форк [LetovKai/call-translator](https://github.com/LetovKai/call-translator), автор оригинала — Kai Letov.
-
-> **Внимание:** только macOS (14+). Использует CoreAudio и cpal для захвата аудио. Поддержка Windows/Linux пока отсутствует — принимаем контрибуции!
+> **Внимание:** macOS — основная платформа (14+). Порт на Windows в разработке (ветка `windows`). Контрибуции на Linux приветствуются.
 
 ---
 
