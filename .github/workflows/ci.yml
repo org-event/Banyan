@@ -186,7 +186,7 @@ jobs:
           save-if: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Clippy
-        run: cargo clippy -p translator -p audio-core --all-targets -- -D warnings
+        run: cargo clippy -p translator -p audio-core@0.1.0 --all-targets -- -D warnings
 
       - name: Build release
         run: cargo build --release -p translator
