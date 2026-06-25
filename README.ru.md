@@ -17,7 +17,7 @@
 ![macOS](https://img.shields.io/badge/platform-macOS_14+-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-> **Внимание:** macOS — основная платформа (14+). Порт на Windows в разработке (ветка `windows`). Контрибуции на Linux приветствуются.
+> **Внимание:** macOS — основная платформа (14+). Порт на Windows в разработке ([`docs/windows.md`](docs/windows.md)). Порт на Linux начат в [`feat/linux`](docs/linux.md) — контрибуции приветствуются.
 
 ---
 

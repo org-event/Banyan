@@ -30,6 +30,18 @@ run:
 setup:
     cargo run --release -p translator -- setup
 
+# Remove Swift build caches and legacy Banyan-era artifacts (e.g. after repo rename).
+clean:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for pkg in tools/polysphere-speech-auth tools/polysphere-translate tools/polysphere-speech; do
+      rm -rf "$pkg/.build"
+    done
+    rm -rf tools/polysphere-speech-auth/PolySphereSpeech.app
+    rm -rf target/debug/BanyanSpeech.app target/release/BanyanSpeech.app
+    rm -f target/debug/banyan-translate target/release/banyan-translate
+    echo "[ok] cleaned Swift .build caches and legacy Banyan artifacts"
+
 # --- install steps ---
 
 install-rust:

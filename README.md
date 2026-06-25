@@ -18,7 +18,7 @@ Supports **29 languages** with STT, translation, and TTS. Voice models from [Pip
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![GitHub stars](https://img.shields.io/github/stars/org-event/OpenPolySphere)
 
-> **Note:** macOS production today (14+). Windows port in active development (see `windows` branch). Linux contributions welcome.
+> **Note:** macOS production today (14+). Windows port in active development ([`docs/windows.md`](docs/windows.md)). Linux port started on [`feat/linux`](docs/linux.md) — contributions welcome.
 
 ---
 
