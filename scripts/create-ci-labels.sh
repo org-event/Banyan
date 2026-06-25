@@ -14,3 +14,4 @@ create() {
 }
 
 create "ci/windows-only" "1D76DB" "Skip macOS CI on this PR; Windows jobs still run"
+create "ci/linux-only" "2EA043" "Skip macOS and Windows CI on this PR; Linux job still runs"

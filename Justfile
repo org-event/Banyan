@@ -84,8 +84,9 @@ install-system:
         echo "[ok] macOS system deps"
         ;;
       Linux)
-        echo "[i] Linux: optional runtime libs for local build:"
-        echo "    Debian/Ubuntu: sudo apt install espeak-ng libonnxruntime-dev pkg-config"
+        echo "[i] Linux: install runtime libs for local build:"
+        echo "    Debian/Ubuntu: sudo apt install cmake pkg-config libopenblas-dev espeak-ng"
+        echo "    ONNX Runtime: set ORT_DYLIB_PATH to libonnxruntime.so (see docs/linux.md)"
         echo "    PolySphere Speech / Swift checks are skipped on Linux (CI runs them on macOS)."
         echo "    just prepush includes check-windows-static (fast cfg guards for all hosts)."
         ;;

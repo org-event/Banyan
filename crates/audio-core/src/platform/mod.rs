@@ -6,6 +6,7 @@
 
 mod bundle;
 mod capabilities;
+mod defaults;
 mod paths;
 
 pub use bundle::{
@@ -13,4 +14,5 @@ pub use bundle::{
     SPEECH_AUTH_APP, SPEECH_CLI_BINARY, SPEECH_EXECUTABLE, TRANSLATE_BINARY,
 };
 pub use capabilities::Capabilities;
+pub use defaults::{default_meet_input_device, default_meet_output_device};
 pub use paths::{default_ort_dylib, find_espeak_ng, ort_dylib_exists, ort_missing_hint};

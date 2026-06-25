@@ -28,20 +28,23 @@ Security (RustSec, CodeQL, dependency-review) — отдельные workflow и
 
 ### 2. Кэш
 
-- **`swatinem/rust-cache`** на macOS и Windows (`save-if: main` — не раздувать кэш с каждой feature-ветки).
+- **`swatinem/rust-cache`** на macOS, Windows и Linux (`save-if: main` — не раздувать кэш с каждой feature-ветки).
 - **`actions/cache`** для `C:\vcpkg\installed\x64-windows-static` — OpenBLAS не собирать 15+ мин каждый раз.
 - ONNX Runtime zip — скачивать только если нет в `ort/`.
 
 ### 3. Scope platform jobs
 
-| Событие | macOS | Windows |
-|---------|-------|---------|
-| push / PR, rust или workflows изменились | ✅ | ✅ |
-| PR с label `ci/windows-only` | ❌ | ✅ |
-| `workflow_dispatch` | по выбору `all` / `macos` / `windows` | по выбору |
-| только docs/README | ❌ | ❌ |
+| Событие | macOS | Windows | Linux |
+|---------|-------|---------|-------|
+| push / PR, rust или workflows изменились | ✅ | ✅ | ✅ |
+| PR с label `ci/windows-only` | ❌ | ✅ | ✅ |
+| PR с label `ci/linux-only` | ❌ | ❌ | ✅ |
+| `workflow_dispatch` | по выбору `all` / `macos` / `windows` / `linux` | по выбору | по выбору |
+| только docs/README | ❌ | ❌ | ❌ |
 
 Label **`ci/windows-only`** — вешать на PR, пока активно портирование Windows (экономия ~10 мин macOS).
+
+Label **`ci/linux-only`** — вешать на PR, пока активно портирование Linux (экономия macOS + Windows).
 
 ### 4. Что не трогаем
 
