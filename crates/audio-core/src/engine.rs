@@ -115,8 +115,12 @@ impl EngineConfig {
                 .unwrap_or_else(|| format!("{base}/piper-ru/ru_RU-denis-medium.onnx.json")),
             mic_device: fields.mic_device.unwrap_or_else(|| "default".into()),
             speaker_device: fields.speaker_device.unwrap_or_else(|| "default".into()),
-            meet_input_device: fields.meet_input.unwrap_or_else(|| "BlackHole 16ch".into()),
-            meet_output_device: fields.meet_out.unwrap_or_else(|| "BlackHole 2ch".into()),
+            meet_input_device: fields
+                .meet_input
+                .unwrap_or_else(|| crate::platform::default_meet_input_device().into()),
+            meet_output_device: fields
+                .meet_out
+                .unwrap_or_else(|| crate::platform::default_meet_output_device().into()),
             sample_rate: fields.sample_rate.unwrap_or(48000),
             endpointing_ms: fields.endpointing_ms.unwrap_or(500),
             my_language: fields.my_language.unwrap_or_else(|| "ru".into()),

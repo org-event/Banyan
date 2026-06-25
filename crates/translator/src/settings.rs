@@ -8,6 +8,8 @@ use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 
+use audio_core::platform::{default_meet_input_device, default_meet_output_device};
+
 use crate::paths::{ensure_parent, settings_path};
 
 pub const DEEPGRAM_API_URL: &str = "https://api.deepgram.com/v1/projects";
@@ -62,11 +64,11 @@ impl Default for Settings {
         fields.insert("speaker_device".into(), Value::String("default".into()));
         fields.insert(
             "meet_input_device".into(),
-            Value::String("BlackHole 16ch".into()),
+            Value::String(default_meet_input_device().into()),
         );
         fields.insert(
             "meet_output_device".into(),
-            Value::String("BlackHole 2ch".into()),
+            Value::String(default_meet_output_device().into()),
         );
         fields.insert("endpointing_ms".into(), Value::from(500));
         fields.insert("my_language".into(), Value::String("ru".into()));
