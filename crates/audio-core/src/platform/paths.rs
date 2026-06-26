@@ -45,16 +45,21 @@ pub fn ort_missing_hint(path: &str) -> String {
 
 /// Resolve espeak-ng binary (checks PATH and common install locations).
 pub fn find_espeak_ng() -> anyhow::Result<String> {
-    let mut candidates = vec!["espeak-ng", "/usr/bin/espeak-ng"];
-
     #[cfg(target_os = "macos")]
-    {
-        candidates.extend(["/opt/homebrew/bin/espeak-ng", "/usr/local/bin/espeak-ng"]);
-    }
+    let candidates = [
+        "espeak-ng",
+        "/usr/bin/espeak-ng",
+        "/opt/homebrew/bin/espeak-ng",
+        "/usr/local/bin/espeak-ng",
+    ];
     #[cfg(target_os = "windows")]
-    {
-        candidates.push(r"C:\Program Files\eSpeak NG\espeak-ng.exe");
-    }
+    let candidates = [
+        "espeak-ng",
+        "/usr/bin/espeak-ng",
+        r"C:\Program Files\eSpeak NG\espeak-ng.exe",
+    ];
+    #[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
+    let candidates = ["espeak-ng", "/usr/bin/espeak-ng"];
 
     for candidate in candidates {
         if Command::new(candidate)
