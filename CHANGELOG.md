@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-06-28
+
+### Added
+
+- macOS: `OpenPolySphere.app` + `.dmg` / `.zip` (Apple Silicon and Intel x64)
+- Linux: `.deb`, `.rpm`, and portable `.zip`
+- Windows: Inno Setup installer + portable `.zip`
+
+### Fixed
+
+- Release packaging: macOS zip output path, Linux nfpm download URL, Windows Inno Setup script
+
 ## [0.4.0] - 2026-06-26
 
 ### Added
