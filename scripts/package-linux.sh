@@ -80,7 +80,7 @@ NFPM_VER="2.41.1"
 NFPM_BIN="$ROOT/packaging/linux/.nfpm"
 if [[ ! -x "$NFPM_BIN" ]]; then
   curl -fsSL -o /tmp/nfpm.tgz \
-    "https://github.com/goreleaser/nfpm/releases/download/v${NFPM_VER}/nfpm_${NFPM_VER}_linux_amd64.tar.gz"
+    "https://github.com/goreleaser/nfpm/releases/download/v${NFPM_VER}/nfpm_${NFPM_VER}_Linux_x86_64.tar.gz"
   tar -xzf /tmp/nfpm.tgz -C /tmp nfpm
   mv /tmp/nfpm "$NFPM_BIN"
   chmod +x "$NFPM_BIN"

@@ -10,6 +10,8 @@ set -euo pipefail
 
 VERSION="${1:?usage: package-macos-app.sh <version> [output-dir]}"
 OUT_DIR="${2:-dist}"
+mkdir -p "$OUT_DIR"
+OUT_DIR="$(cd "$OUT_DIR" && pwd)"
 ARCH="$(uname -m)"
 case "$ARCH" in
   x86_64) ARCH_LABEL="x64" ;;
@@ -79,12 +81,11 @@ if command -v codesign >/dev/null 2>&1; then
   codesign --force --sign - "$APP" 2>/dev/null || true
 fi
 
-mkdir -p "$OUT_DIR"
 rm -f "$ZIP" "$DMG"
 
 (
   cd "$WORK"
-  zip -r "$ZIP" OpenPolySphere.app
+  zip -r "$OUT_DIR/${ARTIFACT_BASE}.zip" OpenPolySphere.app
 )
 
 if command -v create-dmg >/dev/null 2>&1; then
