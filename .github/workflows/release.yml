@@ -140,6 +140,9 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Install Inno Setup
+        run: choco install innosetup -y
+
       - name: Build release
         run: cargo build --release -p translator
 
@@ -147,31 +150,13 @@ jobs:
         shell: pwsh
         run: |
           $VERSION = "${{ github.ref_name }}".Substring(1)
-          $NAME = "openpolysphere-${VERSION}-windows-x64"
-          $STAGING = "dist/$NAME"
-          New-Item -ItemType Directory -Force -Path dist | Out-Null
-          if (Test-Path $STAGING) { Remove-Item -Recurse -Force $STAGING }
-          New-Item -ItemType Directory -Force -Path $STAGING | Out-Null
-          Copy-Item target/release/translator.exe $STAGING/
-          Copy-Item ort/onnxruntime-win-x64-$env:ORT_VERSION/lib/onnxruntime.dll $STAGING/
-          Copy-Item -Recurse web $STAGING/web
-          Copy-Item .env.example, README.md $STAGING/
-          if (Test-Path README.ru.md) { Copy-Item README.ru.md $STAGING/ }
-          @(
-            "OpenPolySphere Windows release (Windows 10/11 x64)",
-            "",
-            "1. Unzip to a folder",
-            "2. .\translator.exe setup   (downloads models)",
-            "3. .\translator.exe         then open http://127.0.0.1:5050",
-            "",
-            "Virtual audio for calls: VB-Audio Virtual Cable (see docs/windows.md)",
-            "espeak-ng: install via choco if TTS phonemization fails"
-          ) | Set-Content -Path $STAGING/WINDOWS.txt
-          Compress-Archive -Path $STAGING -DestinationPath "dist/${NAME}.zip" -Force
+          & ./scripts/package-windows.ps1 -Version $VERSION -OutDir dist
 
       - uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3
         with:
-          files: dist/*.zip
+          files: |
+            dist/openpolysphere-*-windows-x64.zip
+            dist/openpolysphere-*-windows-x64-setup.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -212,34 +197,14 @@ jobs:
       - name: Package
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          ORT_DIR="ort/onnxruntime-linux-x64-${ORT_VERSION}"
-          NAME="openpolysphere-${VERSION}-linux-x64"
-          STAGING="dist/${NAME}"
-          mkdir -p dist
-          rm -rf "$STAGING"
-          mkdir -p "$STAGING"
-          cp target/release/translator "$STAGING/"
-          cp "$ORT_DIR/lib/libonnxruntime.so" "$STAGING/"
-          cp -R web "$STAGING/web"
-          cp .env.example README.md "$STAGING/"
-          [[ -f README.ru.md ]] && cp README.ru.md "$STAGING/"
-          printf '%s\n' \
-            'OpenPolySphere Linux release (Ubuntu 22.04+ x64)' \
-            '' \
-            '1. Unzip to a folder' \
-            '2. chmod +x translator' \
-            '3. export ORT_DYLIB_PATH=$PWD/libonnxruntime.so' \
-            '4. export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH' \
-            '5. ./translator setup   (downloads models)' \
-            '6. ./translator         then open http://127.0.0.1:5050' \
-            '' \
-            'Virtual audio: PipeWire/PulseAudio null sinks (see docs/linux.md)' \
-            'espeak-ng: sudo apt install espeak-ng if TTS phonemization fails' \
-            > "$STAGING/LINUX.txt"
-          (cd dist && zip -r "${NAME}.zip" "${NAME}")
+          chmod +x scripts/package-linux.sh
+          ./scripts/package-linux.sh "$VERSION" dist
 
       - uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3
         with:
-          files: dist/*.zip
+          files: |
+            dist/openpolysphere-*-linux-x64.zip
+            dist/openpolysphere_*_amd64.deb
+            dist/openpolysphere-*-*.x86_64.rpm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
