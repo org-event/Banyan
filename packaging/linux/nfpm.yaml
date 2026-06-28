@@ -1,0 +1,41 @@
+# nfpm config — run via scripts/package-linux.sh (populates .pack-root first).
+name: openpolysphere
+arch: amd64
+platform: linux
+version: "0.0.0"
+version_schema: none
+section: sound
+priority: optional
+maintainer: "org-event <https://github.com/org-event>"
+description: |
+  Real-time speech translator for video and voice calls.
+  Local Whisper STT, Opus-MT translation, Piper TTS.
+homepage: "https://github.com/org-event/OpenPolySphere"
+license: MIT
+depends:
+  - espeak-ng
+  - libasound2
+  - libopenblas0-pthread | libopenblas0
+recommends:
+  - ca-certificates
+contents:
+  - src: ./.pack-root/usr/lib/openpolysphere/bin/translator
+    dst: /usr/lib/openpolysphere/bin/translator
+    file_info:
+      mode: 0755
+  - src: ./.pack-root/usr/lib/openpolysphere/lib/libonnxruntime.so
+    dst: /usr/lib/openpolysphere/lib/libonnxruntime.so
+    file_info:
+      mode: 0644
+  - src: ./.pack-root/usr/share/openpolysphere/web
+    dst: /usr/share/openpolysphere/web
+  - src: ./packaging/linux/openpolysphere-wrapper.sh
+    dst: /usr/bin/openpolysphere
+    file_info:
+      mode: 0755
+overrides:
+  rpm:
+    depends:
+      - espeak-ng
+      - alsa-lib
+      - openblas
