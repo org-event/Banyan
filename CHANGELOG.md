@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.5] - 2026-06-29
+
 ### Fixed
 
 - macOS `.app`: request microphone permission at startup; sign `translator` helper in bundle
