@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-06-29
+
 ### Added
 
 - Cross-platform desktop shell (`openpolysphere`): embedded WebView on macOS, Windows, and Linux; server stops when the window closes
